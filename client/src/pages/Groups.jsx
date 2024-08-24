@@ -102,7 +102,7 @@ useEffect(() => {
     setMembers(groupDetails.data.chat.members);
     setLoadingGroupName(false);
   }
-}, [groupDetails.data]);
+}, [groupDetails.data, updateGroup, setGroupName]);
 
   const navigateBack = () => {
     navigate("/");

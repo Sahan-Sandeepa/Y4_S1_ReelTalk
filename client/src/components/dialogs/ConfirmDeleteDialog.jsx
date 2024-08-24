@@ -12,7 +12,7 @@ import React from "react";
 
 const ConfirmDeleteDialog = ({ open, handleClose, deleteHandler }) => {
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleClose} sx={{ ml: 60, mt: 5 }}>
             <DialogTitle>Confirm Delete</DialogTitle>
             <DialogContent>
                 <DialogContentText>
