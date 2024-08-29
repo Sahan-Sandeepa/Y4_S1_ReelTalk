@@ -77,7 +77,7 @@ const BottomAppBar = () => {
         square
         sx={{
           width: '100%',
-          maxWidth: '400px',
+          maxWidth: '390px',
           position: 'fixed',
           bottom: '70px',
           left: '50%',
@@ -88,7 +88,7 @@ const BottomAppBar = () => {
           borderRadius: '8px',
         }}
       >
-        <Typography variant="h5" gutterBottom component="div" sx={{ p: 2, pb: 0 }}>
+        <Typography variant="h5" gutterBottom component="div" sx={{ p: 2, pb: 0, display: 'flex', justifyContent: 'center' }}>
           All chats
         </Typography>
         <List sx={{ mb: 2 }}>
@@ -96,7 +96,7 @@ const BottomAppBar = () => {
             <Skeleton />
           ) : (
             <ChatList
-              w="26vw"
+              w="24.3vw"
               chats={data?.chats}
               chatId={chatId}
             />
