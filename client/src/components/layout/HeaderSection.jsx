@@ -37,7 +37,7 @@ const Layout = ({
             >
                 <Toolbar sx={{ justifyContent: 'space-between' }}>
                     <Typography variant="h6" component="div" sx={{ color: mode === 'dark' ? '#fff' : '#202020' }}>
-                        Chats
+                        ReelTalk
                     </Typography>
                     <Box>
                         <IconBtn
