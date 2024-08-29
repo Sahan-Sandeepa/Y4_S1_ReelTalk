@@ -43,7 +43,12 @@ const Landing = () => {
         );
 
         const responses = await Promise.all(requests);
-        const moviesData = responses.map(response => response.data.Search || []);
+        const moviesData = responses.map((response, categoryIndex) =>
+          response.data.Search?.map((movie, movieIndex) => ({
+            ...movie,
+            dynamicID: `${categoryIndex}-${movieIndex}`,
+          })) || []
+        );
         setMovies(moviesData);
       } catch (err) {
         setError(err);
@@ -251,7 +256,7 @@ const Landing = () => {
               <h2 style={titleStyle}>{category.title}</h2>
               <div style={movieListStyle}>
                 {movies[index]?.map((movie) => (
-                  <div key={movie.imdbID} style={movieCardStyle}>
+                  <div key={movie.dynamicID} style={movieCardStyle}>
                     <img
                       src={movie.Poster}
                       alt={movie.Title}

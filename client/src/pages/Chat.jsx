@@ -280,14 +280,15 @@ const Chat = ({ chatId, user }) => {
             alignItems: 'center',
             zIndex: 1000,
             margin: '0 0 18rem 28rem',
-            width: 'calc(40% - 1rem)',
+            width: 'calc(35% - 1rem)',
+            height: 'calc(15% - 1rem)'
           }}>
             <span style={{
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
             }}>
-              <WarningIcon style={{ color: 'white' }} />
+              <WarningIcon style={{ color: 'yellow' }} />
               {warning}
             </span>
             <div>
@@ -334,13 +335,13 @@ const Chat = ({ chatId, user }) => {
             }}
             onClick={handleFileOpen}
           >
-            <Tooltip title="Attach File">
+            <Tooltip title="Attach file">
               <AttachFileIcon />
             </Tooltip>
           </AssignmentIcon>
 
           <InputBox
-            placeholder="Type Message Here..."
+            placeholder="Type a message"
             value={message}
             onChange={messageOnChange}
             disabled={warningVisible && IsScannerOn}
