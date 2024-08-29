@@ -47,10 +47,6 @@ const BottomAppBar = () => {
   const navigate = useNavigate();
   const [onlineUsers, setOnlineUsers] = useState([]);
   const socket = useSocket();
-  console.log(' -------------------------');
-  console.log('BottomAppBar  data:', data);
-  console.log(' -------------------------');
-
   const chatId = params.chatId;
   useErrors([{ isError, error }]);
 
