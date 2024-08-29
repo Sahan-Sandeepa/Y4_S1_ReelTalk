@@ -43,7 +43,12 @@ const Landing = () => {
         );
 
         const responses = await Promise.all(requests);
-        const moviesData = responses.map(response => response.data.Search || []);
+        const moviesData = responses.map((response, categoryIndex) =>
+          response.data.Search?.map((movie, movieIndex) => ({
+            ...movie,
+            dynamicID: `${categoryIndex}-${movieIndex}`,
+          })) || []
+        );
         setMovies(moviesData);
       } catch (err) {
         setError(err);
@@ -65,9 +70,38 @@ const Landing = () => {
     setSelectedMovie(null);
   };
 
-  const handleShareOrRequestClick = () => {
-    setShowBottomAppBar(true);
-    handleClose();
+  const handleMovieAction = async (actionType, movieID, poster) => {
+    try {
+      const response = await fetch('https://your-api-endpoint.com/api/movie-action', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: actionType,
+          movieID: movieID,
+          poster: poster
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log(`${actionType} action was successful`, data);
+    } catch (error) {
+      console.error(`Failed to perform ${actionType} action:`, error);
+    }
+  };
+
+  const handleShareOrRequestClick = (actionType) => {
+    if (selectedMovie) {
+      const { dynamicID, Poster } = selectedMovie;
+      handleMovieAction(actionType, dynamicID, Poster);
+      setShowBottomAppBar(true);
+      handleClose();
+    }
   };
 
   if (loading) return <div>Loading...</div>;
@@ -251,18 +285,25 @@ const Landing = () => {
               <h2 style={titleStyle}>{category.title}</h2>
               <div style={movieListStyle}>
                 {movies[index]?.map((movie) => (
-                  <div key={movie.imdbID} style={movieCardStyle}>
+                  <div key={movie.dynamicID} style={movieCardStyle}>
                     <img
                       src={movie.Poster}
                       alt={movie.Title}
-                      style={movieImageStyle} />
+                      style={movieImageStyle}
+                    />
                     <div style={movieTitleStyle}>{movie.Title}</div>
                     <div style={movieDescriptionStyle}>
                       {movie.Year} | {movie.Type}
                     </div>
                     <MoreVertIcon
-                      style={{ position: 'absolute', bottom: '10px', right: '10px', cursor: 'pointer' }}
-                      onClick={(e) => handleMenuClick(e, movie)} />
+                      style={{
+                        position: 'absolute',
+                        bottom: '10px',
+                        right: '10px',
+                        cursor: 'pointer'
+                      }}
+                      onClick={(e) => handleMenuClick(e, movie)}
+                    />
                   </div>
                 ))}
               </div>
@@ -277,14 +318,14 @@ const Landing = () => {
           PaperProps={{ style: menuStyle }}
         >
           <MenuItem
-            onClick={() => handleShareOrRequestClick()}
+            onClick={() => handleShareOrRequestClick('Share')}
             style={menuItemStyle}
           >
             <ReplyIcon style={iconStyle} />
             Share
           </MenuItem>
           <MenuItem
-            onClick={() => handleShareOrRequestClick()}
+            onClick={() => handleShareOrRequestClick('Recommend')}
             style={menuItemStyle}
           >
             <RecommendIcon style={iconStyle} />
@@ -292,7 +333,7 @@ const Landing = () => {
           </MenuItem>
           {user.age < 18 ? (
             <MenuItem
-              onClick={() => { handleShareOrRequestClick(); }}
+              onClick={() => handleShareOrRequestClick('Request')}
               style={menuItemStyle}
             >
               <PlayCircleOutlineIcon style={iconStyle} />
@@ -304,30 +345,36 @@ const Landing = () => {
         {showBottomAppBar && <BottomAppBar />}
 
         <CTA26
-          heading1={<Fragment>
-            <span className="landing-text124 thq-heading-1">
-              Get Started with create Group
-            </span>
-          </Fragment>}
-          content1={<Fragment>
-            <span className="landing-text125 thq-body-large">
-              Start chatting with your loved ones.
-            </span>
-          </Fragment>}
-          action1={<Fragment>
-            <span className="landing-text126">Create Group</span>
-          </Fragment>}
-        >
-        </CTA26>
+          heading1={
+            <Fragment>
+              <span className="landing-text124 thq-heading-1">
+                Get Started with create Group
+              </span>
+            </Fragment>
+          }
+          content1={
+            <Fragment>
+              <span className="landing-text125 thq-body-large">
+                Start chatting with your loved ones.
+              </span>
+            </Fragment>
+          }
+          action1={
+            <Fragment>
+              <span className="landing-text126">Create Group</span>
+            </Fragment>
+          }
+        />
 
         <Footer
-          title={<Fragment>
-            <span className="landing-text132 thq-body-small">
-              Connect with us
-            </span>
-          </Fragment>}
-        >
-        </Footer>
+          title={
+            <Fragment>
+              <span className="landing-text132 thq-body-small">
+                Connect with us
+              </span>
+            </Fragment>
+          }
+        />
       </div>
     </>
   );
