@@ -6,7 +6,7 @@ import axios from 'axios';
 import PickTheDate from './DatePicker';
 import PropTypes from 'prop-types';
 import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
-import { server } from '../../constants/config'; 
+import { server } from '../../constants/config';
 
 const UserDetailsForm = ({ onClose }) => {
   const [name, setName] = useState('');
@@ -50,59 +50,59 @@ const UserDetailsForm = ({ onClose }) => {
     }
   };
 
-const handleSubmit = async () => {
+  const handleSubmit = async () => {
     if (!name || !username || !password) {
-        return toast.error("Name, Username, and Password are required");
+      return toast.error("Name, Username, and Password are required");
     }
     const age = calculateAge(birthDate);
     setIsLoading(true);
     const toastId = toast.loading("Submitting...");
 
     try {
-        const formData = new FormData();
-        formData.append("name", name);
-        formData.append("bio", bio);
-        formData.append("username", username);
-        formData.append("password", password);
-        formData.append("age", age);
-        if (avatar) formData.append("avatar", avatar);
-        formData.append("createdBy", user._id);
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("bio", bio);
+      formData.append("username", username);
+      formData.append("password", password);
+      formData.append("age", age);
+      if (avatar) formData.append("avatar", avatar);
+      formData.append("createdBy", user._id);
 
-        const config = {
-            withCredentials: true,
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        };
+      const config = {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
 
-        const { data } = await axios.post(
-            `${server}/api/v1/user/new`,
-            formData,
-            config
-        );
+      const { data } = await axios.post(
+        `${server}/api/v1/user/new`,
+        formData,
+        config
+      );
 
-        toast.success(data.message, {
-            id: toastId,
-        });
-        onClose();
+      toast.success(data.message, {
+        id: toastId,
+      });
+      onClose();
     } catch (error) {
-        toast.error(error?.response?.data?.message || "Something went wrong", {
-            id: toastId,
-        });
+      toast.error(error?.response?.data?.message || "Something went wrong", {
+        id: toastId,
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <Dialog open onClose={onClose}>
+    <Dialog open={open} onClose={onClose}>
       <Stack p={{ xs: '1rem', sm: '3rem' }} width={"25rem"} spacing={"2rem"}>
         <DialogTitle textAlign={"center"} variant="h5">
           Add User
         </DialogTitle>
 
-        <Stack spacing={1}>
-          <Stack alignItems="center">
+        <Stack spacing={2}>
+          <Stack alignItems="center" position="relative">
             <Avatar
               sx={{
                 width: "10rem",
@@ -114,9 +114,13 @@ const handleSubmit = async () => {
             />
             <IconButton
               sx={{
-                position: "absolute",
-                bottom: "0",
-                right: "0",
+                position: "sticky",
+                bottom: 8,
+                marginTop: -4,
+                width: "3rem",
+                height: "3rem",
+                marginLeft: 15,
+                right: 8,
                 color: "#fff",
                 bgcolor: "#ccc",
                 ":hover": {
@@ -143,19 +147,23 @@ const handleSubmit = async () => {
             fullWidth
           />
           <TextField
-            label="Bio"
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            fullWidth
-          />
-          <TextField
             required
             label="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             fullWidth
           />
-          <PickTheDate onChange={handleDateChange} />
+          <TextField
+            required
+            label="Birth Date"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={birthDate}
+            onChange={(e) => handleDateChange(e.target.value)}
+            fullWidth
+          />
           <TextField
             required
             label="Password"
@@ -163,6 +171,14 @@ const handleSubmit = async () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             fullWidth
+          />
+          <TextField
+            label="Bio"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            fullWidth
+            multiline
+            rows={3}
           />
         </Stack>
 
