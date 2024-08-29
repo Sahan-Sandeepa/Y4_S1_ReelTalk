@@ -77,7 +77,7 @@ ChatList.propTypes = {
 ChatList.defaultProps = {
   onlineUsers: [],
   newMessagesAlert: [],
-  handleDeleteChat: null,
+  handleDeleteChat: undefined,
 };
 
 export default ChatList;
