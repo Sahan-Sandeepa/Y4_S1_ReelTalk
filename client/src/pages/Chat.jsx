@@ -19,6 +19,8 @@ import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
 } from "@mui/icons-material";
+import { green } from '@mui/material/colors';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import { InputBox } from "../components/styles/StyledComponent";
 import FileMenu from "../components/dialogs/FileMenu";
 import MessageComponent from "../components/shared/MessageComponet.jsx";
@@ -246,16 +248,16 @@ const Chat = ({ chatId, user }) => {
             width: '8px',
           },
           '&::-webkit-scrollbar-track': {
-              background: '#f5f5f5',
+            background: '#f5f5f5',
           },
           '&::-webkit-scrollbar-thumb': {
-              background: '#888',
-              borderRadius: '4px',
+            background: '#888',
+            borderRadius: '4px',
           },
           '&::-webkit-scrollbar-thumb:hover': {
-              background: '#555',
+            background: '#555',
           },
-        transition: 'scrollbar-width 0.3s ease',
+          transition: 'scrollbar-width 0.3s ease',
         }}
       >
         {allMessages.map((i) => (
@@ -321,20 +323,21 @@ const Chat = ({ chatId, user }) => {
           padding={"1rem"}
           alignItems={"center"}
           position={"relative"}
-          sx={{bgcolor: mode === 'dark' ? '#2c2c2c' : "#e0e0e0" }}
+          sx={{ bgcolor: mode === 'dark' ? '#2c2c2c' : "#e0e0e0" }}
         >
-          <IconButton
+          <AssignmentIcon
             sx={{
               position: "absolute",
               left: "1.5rem",
-              rotate: "30deg",
+              bgcolor: green[300],
+              borderRadius: 1
             }}
             onClick={handleFileOpen}
           >
             <Tooltip title="Attach File">
               <AttachFileIcon />
             </Tooltip>
-          </IconButton>
+          </AssignmentIcon>
 
           <InputBox
             placeholder="Type Message Here..."
@@ -364,7 +367,7 @@ const Chat = ({ chatId, user }) => {
                 bgcolor: "error.dark",
               },
             }}
-           >
+          >
             <SendIcon />
           </IconButton>
         </Stack>
