@@ -10,7 +10,6 @@ import ReplyIcon from '@mui/icons-material/Reply';
 import RecommendIcon from '@mui/icons-material/Recommend';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import BottomAppBar from '../utils/BottomAppBar';
-// import Navbar8 from '../assets/components/navbar8'
 import CTA26 from '../assets/components/cta26'
 import Footer from '../assets/components/footer'
 import '../components/styles/landing.css'
@@ -33,6 +32,8 @@ const Landing = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [showBottomAppBar, setShowBottomAppBar] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  const [selectedChatId, setSelectedChatId] = useState(null);
+  const [selectedAction, setSelectedAction] = useState(null);
   const { mode } = useTheme();
 
   useEffect(() => {
@@ -67,42 +68,28 @@ const Landing = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
-    setSelectedMovie(null);
-  };
-
-  const handleMovieAction = async (actionType, movieID, poster) => {
-    try {
-      const response = await fetch('https://your-api-endpoint.com/api/movie-action', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: actionType,
-          movieID: movieID,
-          poster: poster
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      console.log(`${actionType} action was successful`, data);
-    } catch (error) {
-      console.error(`Failed to perform ${actionType} action:`, error);
-    }
+    // setSelectedMovie(null);
   };
 
   const handleShareOrRequestClick = (actionType) => {
     if (selectedMovie) {
-      const { dynamicID, Poster } = selectedMovie;
-      handleMovieAction(actionType, dynamicID, Poster);
+      setSelectedAction(actionType);
       setShowBottomAppBar(true);
       handleClose();
     }
   };
+
+
+
+
+  useEffect(() => {
+    if (selectedChatId && selectedAction && selectedMovie) {
+      setSelectedChatId(null);
+      setSelectedAction(null);
+      setSelectedMovie(null);
+    }
+  }, [selectedChatId, selectedAction, selectedMovie]);
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -136,7 +123,7 @@ const Landing = () => {
     marginBottom: '25px',
     height: '470px',
     overflow: 'hidden',
-    boxShadow: '0 6px 9px rgba(0.2,0,0,0.5)',
+    boxShadow: '0 6px 9px rgba(0,0,0,0.5)',
     position: 'relative',
     color: mode === 'dark' ? '#fff' : 'black',
   };
@@ -190,94 +177,6 @@ const Landing = () => {
           <title>Chat App</title>
           <meta property="og:title" content="Landing - Chat App" />
         </Helmet>
-        {/* <Navbar8
-      page4Description={
-        <Fragment>
-          <span className="landing-text100 thq-body-small">
-            Chat with friends and family
-          </span>
-        </Fragment>
-      }
-      action1={
-        <Fragment>
-          <span className="landing-text101">Get Started</span>
-        </Fragment>
-      }
-      link2={
-        <Fragment>
-          <span className="landing-text102 thq-link thq-body-small">
-            Movies
-          </span>
-        </Fragment>
-      }
-      page1={
-        <Fragment>
-          <span className="landing-text103 thq-body-large">Home</span>
-        </Fragment>
-      }
-      link1={
-        <Fragment>
-          <span className="landing-text104 thq-link thq-body-small">
-            Features
-          </span>
-        </Fragment>
-      }
-      page4={
-        <Fragment>
-          <span className="landing-text105 thq-body-large">About</span>
-        </Fragment>
-      }
-      page2={
-        <Fragment>
-          <span className="landing-text106 thq-body-large">Pricing</span>
-        </Fragment>
-      }
-      link4={
-        <Fragment>
-          <span className="landing-text107 thq-link thq-body-small">
-            Profile
-          </span>
-        </Fragment>
-      }
-      page1Description={
-        <Fragment>
-          <span className="landing-text108 thq-body-small">
-            Learn about our chat features
-          </span>
-        </Fragment>
-      }
-      page2Description={
-        <Fragment>
-          <span className="landing-text109 thq-body-small">
-            Choose the best plan
-          </span>
-        </Fragment>
-      }
-      link3={
-        <Fragment>
-          <span className="landing-text110 thq-link thq-body-small">
-            My List
-          </span>
-        </Fragment>
-      }
-      page3={
-        <Fragment>
-          <span className="landing-text111 thq-body-large">Contact</span>
-        </Fragment>
-      }
-      page3Description={
-        <Fragment>
-          <span className="landing-text112 thq-body-small">
-            Reach out to us
-          </span>
-        </Fragment>
-      }
-      action2={
-        <Fragment>
-          <span className="landing-text113">Learn More</span>
-        </Fragment>
-      }
-    ></Navbar8> */}
 
         <div style={containerStyle}>
           {categories.map((category, index) => (
@@ -331,7 +230,7 @@ const Landing = () => {
             <RecommendIcon style={iconStyle} />
             Recommend
           </MenuItem>
-          {user.age < 18 ? (
+          {user.age < 18 && (
             <MenuItem
               onClick={() => handleShareOrRequestClick('Request')}
               style={menuItemStyle}
@@ -339,10 +238,12 @@ const Landing = () => {
               <PlayCircleOutlineIcon style={iconStyle} />
               Request
             </MenuItem>
-          ) : null}
+          )}
         </Menu>
-
-        {showBottomAppBar && <BottomAppBar />}
+        {console.log(selectedMovie, "selectedMovie")}
+        {showBottomAppBar && (
+          <BottomAppBar selectedAction={selectedAction} movie={selectedMovie} />
+        )}
 
         <CTA26
           heading1={
