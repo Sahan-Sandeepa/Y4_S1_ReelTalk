@@ -16,18 +16,17 @@ const ChatItem = ({
   newMessageAlert,
   index = 0,
   handleDeleteChat,
-  handleClick,
-  isSelected,
+  onChatSelect,
 }) => {
   return (
     <Link
-      sx={{
+      style={{
         padding: "0",
         textDecoration: 'none',
       }}
       to={`/chat/${_id}`}
       onContextMenu={(e) => handleDeleteChat(e, _id, groupChat)}
-      onClick={() => handleClick(_id)}
+      onClick={() => onChatSelect(_id)} // Use the passed in onChatSelect
     >
       <motion.div
         initial={{ opacity: 0, y: "-100%" }}
@@ -37,8 +36,8 @@ const ChatItem = ({
           display: "flex",
           gap: "0.75rem",
           alignItems: "center",
-          backgroundColor: isSelected ? "rgba(0, 0, 0, 0.2)" : (sameSender ? "rgba(0, 0, 0, 0.1)" : "white"),
-          color: isSelected ? "white" : "black",
+          backgroundColor: sameSender ? "rgba(0, 0, 0, 0.2)" : (isOnline ? "rgba(0, 0, 0, 0.1)" : "white"),
+          color: sameSender ? "white" : "black",
           position: "relative",
           padding: "0.75rem",
           borderRadius: "0.75rem",
@@ -51,10 +50,11 @@ const ChatItem = ({
         <AvatarCard avatar={avatar} />
 
         <Stack sx={{ flex: 1 }}>
-          <Typography variant="body1" sx={{ fontWeight: "bold", color: isSelected ? "white" : "black", }}>
+          <Typography variant="body1" sx={{ fontWeight: "bold", color: sameSender ? "white" : "black" }}>
             {name}
           </Typography>
-          {/* <Typography variant="body2" sx={{color: isSelected ? "white" : "black",}}>
+          {/* Uncomment if you have last message preview */}
+          {/* <Typography variant="body2" sx={{color: sameSender ? "white" : "black"}}>
             Last message preview...
           </Typography> */}
           {newMessageAlert && (
@@ -96,6 +96,7 @@ ChatItem.propTypes = {
   avatar: PropTypes.arrayOf(PropTypes.string),
   name: PropTypes.string.isRequired,
   _id: PropTypes.string.isRequired,
+  onChatSelect: PropTypes.string.isRequired,
   groupChat: PropTypes.bool,
   sameSender: PropTypes.bool,
   isOnline: PropTypes.bool,
