@@ -203,13 +203,26 @@ const Login = () => {
                   Log In
                 </Button>
                 <Typography textAlign={"center"} m={"1rem"}>
-                 <hr
-                    style={{
-                      border: 0,
-                      borderTop: `1px solid ${'#dadde1'}`,
-                      margin: '1rem 0',
-                    }}
-                  />
+                  <div style={{ display: 'flex', alignItems: 'center', margin: '1rem 0' }}>
+                    <hr
+                      style={{
+                        flexGrow: 1,
+                        border: 0,
+                        borderTop: '1px solid #dadde1',
+                        margin: 0,
+                      }}
+                    />
+                    <span style={{ margin: '0 1rem', color: '#666' }}>OR</span>
+                    <hr
+                      style={{
+                        flexGrow: 1,
+                        border: 0,
+                        borderTop: '1px solid #dadde1',
+                        margin: 0,
+                      }}
+                    />
+                  </div>
+
                 </Typography>
                 <div
                   style={{
@@ -231,7 +244,6 @@ const Login = () => {
                       ":hover": {
                         backgroundColor: 'darkgreen',
                       },
-                      width: "85%",
                       justifyContent: "center",
                     }}
                   >
@@ -355,9 +367,26 @@ const Login = () => {
                 >
                   Sign Up
                 </Button>
-                <Typography textAlign={"center"} m={"1rem"}>
-                  <span style={{ color: orange }}>OR</span>
-                </Typography>
+                  <div style={{ display: 'flex', alignItems: 'center', margin: '1rem 0' }}>
+                    <hr
+                      style={{
+                        flexGrow: 1,
+                        border: 0,
+                        borderTop: '1px solid #dadde1',
+                        margin: 0,
+                      }}
+                    />
+                    <span style={{ margin: '0 1rem', color: '#666' }}>OR</span>
+                    <hr
+                      style={{
+                        flexGrow: 1,
+                        border: 0,
+                        borderTop: '1px solid #dadde1',
+                        margin: 0,
+                      }}
+                    />
+                  </div>
+
                 <Button
                   disabled={isLoading}
                   fullWidth
