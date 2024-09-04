@@ -15,7 +15,27 @@ const ChatList = ({
 }) => {
 
   return (
-    <Stack width={w} direction={"column"} overflow={"auto"} height={"100%"} p={2}>
+    <Stack width={w}
+      direction={"column"}
+      overflow={"auto"}
+      height={"100%"}
+      p={2}
+      sx={{
+        '&::-webkit-scrollbar': {
+          width: '8px',
+          backgroundColor: 'transparent',
+        },
+        '&:hover::-webkit-scrollbar': {
+          backgroundColor: '#f1f1f1',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#888',
+          borderRadius: '10px',
+        },
+        '&:hover::-webkit-scrollbar-thumb': {
+          backgroundColor: '#555',
+        },
+      }}>
       {chats.map((data, index) => {
         const { avatar, _id, name, groupChat, members } = data;
 
