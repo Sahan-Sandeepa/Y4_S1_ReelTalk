@@ -13,6 +13,7 @@ import BottomAppBar from '../utils/BottomAppBar';
 import CTA26 from '../assets/components/cta26'
 import Footer from '../assets/components/footer'
 import '../components/styles/landing.css'
+import './../assets/components/navbar.css'
 
 const API_KEY = 'aef6913e';
 
@@ -68,7 +69,6 @@ const Landing = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
-    // setSelectedMovie(null);
   };
 
   const handleShareOrRequestClick = (actionType) => {
@@ -78,9 +78,6 @@ const Landing = () => {
       handleClose();
     }
   };
-
-
-
 
   useEffect(() => {
     if (selectedChatId && selectedAction && selectedMovie) {
@@ -219,6 +216,7 @@ const Landing = () => {
           <MenuItem
             onClick={() => handleShareOrRequestClick('Share')}
             style={menuItemStyle}
+            className="thq-link thq-body-small"
           >
             <ReplyIcon style={iconStyle} />
             Share
@@ -226,6 +224,7 @@ const Landing = () => {
           <MenuItem
             onClick={() => handleShareOrRequestClick('Recommend')}
             style={menuItemStyle}
+            className="thq-link thq-body-small"
           >
             <RecommendIcon style={iconStyle} />
             Recommend
@@ -234,6 +233,7 @@ const Landing = () => {
             <MenuItem
               onClick={() => handleShareOrRequestClick('Request')}
               style={menuItemStyle}
+              className="thq-link thq-body-small"
             >
               <PlayCircleOutlineIcon style={iconStyle} />
               Request
