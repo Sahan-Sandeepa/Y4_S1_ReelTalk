@@ -1,12 +1,12 @@
 import { useInputValidation } from "6pp";
 import {
-    Button,
-    Dialog,
-    DialogTitle,
-    Skeleton,
-    Stack,
-    TextField,
-    Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  Skeleton,
+  Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
@@ -62,28 +62,48 @@ const NewGroup = () => {
         closeHandler();
       })
       .catch(() => toast.error("Failed to create group"));
-};
+  };
 
   const closeHandler = () => {
     dispatch(setIsNewGroup(false));
   };
   return (
-  <>
-    <Dialog onClose={closeHandler} open={isNewGroup}>
-      <Stack p={{ xs: "1rem", sm: "3rem" }} width={"25rem"} spacing={"2rem"}>
-        <DialogTitle textAlign={"center"} variant="h5">
-          Create Group
-        </DialogTitle>
+    <>
+      <Dialog onClose={closeHandler} open={isNewGroup}>
+        <Stack p={{ xs: "1rem", sm: "3rem" }}
+          width={"25rem"}
+          spacing={"2rem"}
+          sx={{
+            maxHeight: '80vh',
+            overflowY: 'auto',
+            '&::-webkit-scrollbar': {
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-track': {
+              backgroundColor: '#f1f1f1',
+              borderRadius: '10px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#888',
+              borderRadius: '10px',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              backgroundColor: '#555',
+            },
+          }}>
+          <DialogTitle textAlign={"center"} variant="h5">
+            Create Group
+          </DialogTitle>
 
-        <Stack spacing={1}>
-          <TextField
-            required
-            label="Group Name"
-            value={groupName.value}
-            onChange={groupName.changeHandler}
-            fullWidth
-          />
-        </Stack>
+          <Stack spacing={1}>
+            <TextField
+              required
+              label="Group Name"
+              value={groupName.value}
+              onChange={groupName.changeHandler}
+              fullWidth
+            />
+          </Stack>
 
           <Stack
             direction="row"
@@ -146,7 +166,6 @@ const NewGroup = () => {
         </Stack>
       </Dialog>
 
-      {/* Conditionally render the UserDetailsForm component */}
       {isUserDetailsFormOpen && (
         <UserDetailsForm
           onClose={() => setIsUserDetailsFormOpen(false)}
