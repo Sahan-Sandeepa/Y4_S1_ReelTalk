@@ -54,7 +54,27 @@ const Search = () => {
 
   return (
     <Dialog open={isSearch} onClose={searchCloseHandler}>
-      <Stack p={"2rem"} direction={"column"} width={"25rem"}>
+      <Stack p={{ xs: "1rem", sm: "3rem" }}
+        width={"25rem"}
+        spacing={"2rem"}
+        sx={{
+          maxHeight: '80vh',
+          overflowY: 'auto',
+          '&::-webkit-scrollbar': {
+            width: '8px',
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: '#f1f1f1',
+            borderRadius: '10px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#888',
+            borderRadius: '10px',
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: '#555',
+          },
+        }}>
         <DialogTitle textAlign={"center"}>Find People</DialogTitle>
         <TextField
           label=""
