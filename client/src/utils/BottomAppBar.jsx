@@ -50,7 +50,7 @@ const BottomAppBar = ({ selectedAction, movie }) => {
       formData.append("files", file);
 
       // Send the attachment
-      dispatch(setUploadingLoader(true)); // Assuming you have this action
+      dispatch(setUploadingLoader(true));
       const toastId = toast.loading(`Sending ${selectedAction}...`);
 
       const res = await sendAttachments(formData).unwrap();
@@ -78,17 +78,32 @@ const BottomAppBar = ({ selectedAction, movie }) => {
     <React.Fragment>
       <Paper
         square
+        ClickAwayListener
         sx={{
           width: '100%',
           maxWidth: '390px',
           position: 'fixed',
-          bottom: '70px',
+          bottom: '40px',
           left: '50%',
           top: '80px',
           transform: 'translateX(-50%)',
           overflowY: 'auto',
           maxHeight: 'calc(100vh - 70px)',
           borderRadius: '8px',
+          '&::-webkit-scrollbar': {
+            width: '8px',
+            backgroundColor: 'transparent',
+          },
+          '&:hover::-webkit-scrollbar': {
+            backgroundColor: '#f1f1f1',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#888',
+            borderRadius: '10px',
+          },
+          '&:hover::-webkit-scrollbar-thumb': {
+            backgroundColor: '#555',
+          },
         }}
       >
         <Typography variant="h5" gutterBottom component="div" sx={{ p: 2, pb: 0, display: 'flex', justifyContent: 'center' }}>
