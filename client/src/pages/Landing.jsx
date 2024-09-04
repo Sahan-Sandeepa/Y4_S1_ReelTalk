@@ -9,7 +9,8 @@ import { useSelector } from 'react-redux';
 import ReplyIcon from '@mui/icons-material/Reply';
 import RecommendIcon from '@mui/icons-material/Recommend';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import BottomAppBar from '../utils/BottomAppBar';  
+import BottomAppBar from '../utils/BottomAppBar';
+import './../assets/components/navbar.css'
 
 const API_KEY = 'aef6913e';
 
@@ -26,6 +27,7 @@ const Landing = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [showBottomAppBar, setShowBottomAppBar] = useState(false);
   const { user } = useSelector((state) => state.auth);
@@ -179,6 +181,7 @@ const Landing = () => {
           <MenuItem
             onClick={() => { handleShareOrRequestClick(); } }
             style={menuItemStyle}
+            className="thq-link thq-body-small"
           >
             <ReplyIcon style={iconStyle} />
             Share
