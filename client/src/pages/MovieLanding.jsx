@@ -52,10 +52,10 @@ const Landing = () => {
           })) || []
         );
 
-        // const storedMovies = JSON.parse(localStorage.getItem('movies') || '[]');
-        // if (JSON.stringify(moviesData) !== JSON.stringify(storedMovies)) {
-        //   localStorage.setItem('movies', JSON.stringify(moviesData));
-        // }
+        const storedMovies = JSON.parse(localStorage.getItem('movies') || '[]');
+        if (JSON.stringify(moviesData) !== JSON.stringify(storedMovies)) {
+          localStorage.setItem('movies', JSON.stringify(moviesData));
+        }
 
         setMovies(moviesData);
       } catch (err) {
