@@ -11,6 +11,7 @@ import {
     removeMember,
     renameGroup,
     sendAttachments,
+    fetchMoviePoster,
 } from "../controllers/chat.js";
 import {
     addMemberValidator,
@@ -58,6 +59,8 @@ app.post(
 
 // Get Messages
 app.get("/message/:id", chatIdValidator(), validateHandler, getMessages);
+
+app.get('/api/fetchPoster', fetchMoviePoster);
 
 // Get Chat Details, rename,delete
 app
