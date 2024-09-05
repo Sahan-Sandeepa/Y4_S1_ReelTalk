@@ -71,6 +71,7 @@ const MessageComponent = ({ message, user }) => {
                   style={{
                     color: "black",
                   }}
+                  onClick={(e) => e.preventDefault()}
                 >
                   {RenderAttachment(file, url)}
                 </a>
