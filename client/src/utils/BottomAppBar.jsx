@@ -78,7 +78,6 @@ const BottomAppBar = ({ selectedAction, movie }) => {
     <React.Fragment>
       <Paper
         square
-        ClickAwayListener
         sx={{
           width: '100%',
           maxWidth: '390px',
