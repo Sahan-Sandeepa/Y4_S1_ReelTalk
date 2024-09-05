@@ -54,8 +54,12 @@ const BottomAppBar = ({ selectedAction, movie }) => {
       const toastId = toast.loading(`Sending ${selectedAction}...`);
 
       const res = await sendAttachments(formData).unwrap();
-
+      
       if (res) {
+        sessionStorage.setItem('chatAttachmentResponse', JSON.stringify(movie.Poster));
+        const storedValue = sessionStorage.getItem('chatAttachmentResponse');
+        console.log('Stored Value in Session Storage:', JSON.parse(storedValue));
+
         toast.success(`${selectedAction} sent successfully`, { id: toastId });
       } else {
         toast.error(`Failed to send ${selectedAction}`, { id: toastId });
