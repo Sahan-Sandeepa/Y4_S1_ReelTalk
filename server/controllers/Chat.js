@@ -449,9 +449,6 @@ const getMessages = TryCatch(async (req, res, next) => {
 const fetchMoviePoster = async (req, res) => {
     try {
         const { posterPath } = req.query;
-        console.log(' -----------------------------------------');
-        console.log('fetchMoviePoster  posterPath:', posterPath);
-        console.log(' -----------------------------------------');
 
         const response = await axios.get(`https://image.tmdb.org/t/p/w500${posterPath}`, {
             responseType: 'arraybuffer',
