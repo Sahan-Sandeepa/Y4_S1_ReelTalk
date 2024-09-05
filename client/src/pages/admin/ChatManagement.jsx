@@ -1,7 +1,7 @@
-import { useFetchData } from "6pp";
-import { Avatar, Skeleton, Stack } from "@mui/material";
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
+import { useFetchData } from "6pp";
+import { Avatar, Skeleton, Stack } from "@mui/material";
 import AdminLayout from "../../components/layout/AdminLayout";
 import AvatarCard from "../../components/shared/AvatarCard";
 import Table from "../../components/shared/Table";
