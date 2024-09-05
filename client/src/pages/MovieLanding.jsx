@@ -51,6 +51,12 @@ const Landing = () => {
             dynamicID: `${categoryIndex}-${movieIndex}`,
           })) || []
         );
+
+        const storedMovies = JSON.parse(localStorage.getItem('movies') || '[]');
+        if (JSON.stringify(moviesData) !== JSON.stringify(storedMovies)) {
+          localStorage.setItem('movies', JSON.stringify(moviesData));
+        }
+
         setMovies(moviesData);
       } catch (err) {
         setError(err);
