@@ -161,7 +161,7 @@ const api = createApi({
             }),
             invalidatesTags: ["Chat"],
         }),
-        
+
         getUsersCreatedByMe: builder.query({
             query: (userId) => {
                 return {
@@ -170,6 +170,16 @@ const api = createApi({
                 };
             },
             providesTags: ["User"],
+        }),
+
+        fetchPoster: builder.query({
+            query: (posterPath) => {
+                return {
+                    url: `chat/api/fetchPoster?posterPath=${posterPath}`,
+                    credentials: "include",
+                };
+            },
+            providesTags: ["Chat"],
         }),
     }),
 });
@@ -193,4 +203,5 @@ export const {
     useDeleteChatMutation,
     useLeaveGroupMutation,
     useGetUsersCreatedByMeQuery,
+    useFetchPosterQuery,
 } = api;
