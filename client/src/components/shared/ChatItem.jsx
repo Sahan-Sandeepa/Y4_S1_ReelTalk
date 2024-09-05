@@ -26,7 +26,7 @@ const ChatItem = ({
       }}
       to={`/chat/${_id}`}
       onContextMenu={(e) => handleDeleteChat(e, _id, groupChat)}
-      onClick={() => onChatSelect(_id)} // Use the passed in onChatSelect
+      onClick={() => onChatSelect(_id)}
     >
       <motion.div
         initial={{ opacity: 0, y: "-100%" }}
