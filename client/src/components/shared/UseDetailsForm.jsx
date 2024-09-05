@@ -3,7 +3,6 @@ import { Dialog, Stack, TextField, Button, DialogTitle, Avatar, IconButton } fro
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import PickTheDate from './DatePicker';
 import PropTypes from 'prop-types';
 import { CameraAlt as CameraAltIcon } from "@mui/icons-material";
 import { server } from '../../constants/config';
@@ -96,7 +95,27 @@ const UserDetailsForm = ({ onClose }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <Stack p={{ xs: '1rem', sm: '3rem' }} width={"25rem"} spacing={"2rem"}>
+      <Stack p={{ xs: "1rem", sm: "3rem" }}
+        width={"25rem"}
+        spacing={"2rem"}
+        sx={{
+          maxHeight: '80vh',
+          overflowY: 'auto',
+          '&::-webkit-scrollbar': {
+            width: '8px',
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: '#f1f1f1',
+            borderRadius: '10px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#888',
+            borderRadius: '10px',
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: '#555',
+          },
+        }}>
         <DialogTitle textAlign={"center"} variant="h5">
           Add User
         </DialogTitle>

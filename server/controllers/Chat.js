@@ -1,6 +1,7 @@
 import { TryCatch } from "../middlewares/error.js";
 import { ErrorHandler, } from "../utils/Utility.js";
 import { Chat } from "../models/Chat.js";
+import axios from "axios";
 import { deletFilesFromCloudinary, emitEvent, uploadFilesToCloudinary } from "../utils/features.js";
 import {
     ALERT,
@@ -445,6 +446,22 @@ const getMessages = TryCatch(async (req, res, next) => {
     });
 });
 
+const fetchMoviePoster = async (req, res) => {
+    try {
+        const { posterPath } = req.query;
+
+        const response = await axios.get(`https://image.tmdb.org/t/p/w500${posterPath}`, {
+            responseType: 'arraybuffer',
+        });
+
+        res.setHeader('Content-Type', 'image/jpeg');
+        res.send(Buffer.from(response.data, 'binary'));
+    } catch (error) {
+        console.error('Error fetching the movie poster:', error);
+        res.status(500).send('Error fetching movie poster');
+    }
+};
+
 export {
     newGroupChat,
     getMyChats,
@@ -457,4 +474,5 @@ export {
     renameGroup,
     deleteChat,
     getMessages,
+    fetchMoviePoster,
 };

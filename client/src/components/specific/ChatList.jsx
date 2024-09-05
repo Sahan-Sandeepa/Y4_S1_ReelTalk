@@ -11,20 +11,36 @@ const ChatList = ({
   onlineUsers = [],
   newMessagesAlert = [],
   handleDeleteChat,
+  onChatSelect,
 }) => {
-  const [selectedChatId, setSelectedChatId] = useState(null);
-
-  const handleClick = (id) => {
-    setSelectedChatId(id);
-  };
 
   return (
-    <Stack width={w} direction={"column"} overflow={"auto"} height={"100%"} p={2}>
+    <Stack width={w}
+      direction={"column"}
+      overflow={"auto"}
+      height={"100%"}
+      p={2}
+      sx={{
+        '&::-webkit-scrollbar': {
+          width: '8px',
+          backgroundColor: 'transparent',
+        },
+        '&:hover::-webkit-scrollbar': {
+          backgroundColor: '#f1f1f1',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#888',
+          borderRadius: '10px',
+        },
+        '&:hover::-webkit-scrollbar-thumb': {
+          backgroundColor: '#555',
+        },
+      }}>
       {chats.map((data, index) => {
         const { avatar, _id, name, groupChat, members } = data;
 
         const newMessageAlert = newMessagesAlert.find(
-          ({ chatId }) => chatId === _id
+          ({ chatId: alertChatId }) => alertChatId === _id
         );
 
         const isOnline = members?.some((member) =>
@@ -43,8 +59,7 @@ const ChatList = ({
             groupChat={groupChat}
             sameSender={chatId === _id}
             handleDeleteChat={handleDeleteChat}
-            handleClick={handleClick}
-            isSelected={selectedChatId === _id}
+            onChatSelect={onChatSelect}
           />
         );
       })}
@@ -64,6 +79,7 @@ ChatList.propTypes = {
     })
   ).isRequired,
   chatId: PropTypes.string.isRequired,
+  onChatSelect: PropTypes.string.isRequired,
   onlineUsers: PropTypes.arrayOf(PropTypes.string),
   newMessagesAlert: PropTypes.arrayOf(
     PropTypes.shape({
@@ -77,7 +93,7 @@ ChatList.propTypes = {
 ChatList.defaultProps = {
   onlineUsers: [],
   newMessagesAlert: [],
-  handleDeleteChat: null,
+  handleDeleteChat: undefined,
 };
 
 export default ChatList;

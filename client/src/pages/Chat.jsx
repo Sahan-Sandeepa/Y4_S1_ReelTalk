@@ -324,12 +324,14 @@ const Chat = ({ chatId, user }) => {
           padding={"1rem"}
           alignItems={"center"}
           position={"relative"}
+          borderRadius={0.7}
+          boxShadow={"0 0 5px 0 rgba(1, 1, 1, 0.1)"}
           sx={{ bgcolor: mode === 'dark' ? '#2c2c2c' : "#e0e0e0" }}
         >
           <AssignmentIcon
             sx={{
               position: "absolute",
-              left: "1.5rem",
+              left: "1.9rem",
               bgcolor: green[300],
               borderRadius: 1
             }}
@@ -343,6 +345,7 @@ const Chat = ({ chatId, user }) => {
           <InputBox
             placeholder="Type a message"
             value={message}
+            sx={{ height: "3rem", width: "100%", borderRadius: 1 }}
             onChange={messageOnChange}
             disabled={warningVisible && IsScannerOn}
           />

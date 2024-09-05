@@ -24,7 +24,7 @@ const Profile = ({ user }) => {
           border: mode === "dark" ? "5px solid white" : "5px solid #bdbdbd",
         }}
       />      
-      <ProfileCard text={user?.name} heading={"Name"} style={{ color: mode === 'dark' ? '#fff' : "#424242", }} Icon={<FaceIcon />} />
+      <ProfileCard text={user?.name} style={{ color: mode === 'dark' ? '#fff' : "#424242", }} Icon={<FaceIcon />} />
       <ProfileCard heading={"About"} text={user?.bio} style={{ color: mode === 'dark' ? '#fff' : "#424242", }} Icon={<InfoIcon />} />
       <ProfileCard heading={"Joined"} text={moment(user?.createdAt).fromNow()} style={{ color: mode === 'dark' ? '#fff' : "#424242", }} Icon={<CalendarIcon />} />
     </Stack>
@@ -39,6 +39,8 @@ const ProfileCard = ({ text, Icon, heading, style = {} }) => (
         color={style}
         textAlign={"center"}
         justifyContent={"flex-start"}
+        paddingLeft={"107px"}
+        paddingTop={"20px"}
         sx={{width: "100%"}}
       >
     {Icon && (

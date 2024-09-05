@@ -26,6 +26,7 @@ const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const UserManagement = lazy(() => import("./pages/admin/UserManagement"));
 const ChatManagement = lazy(() => import("./pages/admin/ChatManagement"));
 const MessagesManagement = lazy(() => import("./pages/admin/MessagesManagement"));
+const MovieDetail = lazy(() => import("./pages/MovieDetail"))
 
 const App = () => {
   const { user, loader } = useSelector((state) => state.auth);
@@ -71,6 +72,7 @@ const App = () => {
                 <Route path="/chat/:chatId" element={<Chat />} />
                 <Route path="/groups" element={<Groups />} />
                 <Route path="/Home/chat" element={<Home />} />
+                <Route path="/movie-detail" element={<MovieDetail />} />
               </Route>
 
               {/* Admin Routes */}
