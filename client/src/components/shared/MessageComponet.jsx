@@ -94,7 +94,7 @@ const MessageComponent = ({ message, user }) => {
                   {RenderAttachment(file, url)}
                 </a>
                 
-                {(file === "image" || file === "video") && (
+                {((file === "image" || file === "video") && user.age >= 18) && (
                   <Box display="flex" flexDirection="column" marginTop="0.5rem" sx={{ width: "100%" }}>
                     {/* Approve Section */}
                     <Button
@@ -176,8 +176,9 @@ MessageComponent.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     avatar: PropTypes.shape({
-      url: PropTypes.string,
+      url: PropTypes.string,      
     }),
+    age: PropTypes.number,
     name: PropTypes.string,
   }).isRequired,
 };
