@@ -246,7 +246,7 @@ const Landing = () => {
             </MenuItem>
           )}
         </Menu>
-        {console.log(selectedMovie, "selectedMovie")}
+
         {showBottomAppBar && (
           <BottomAppBar selectedAction={selectedAction} movie={selectedMovie} />
         )}
