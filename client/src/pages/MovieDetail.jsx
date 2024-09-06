@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography, Grid, Button, Dialog, DialogContent, DialogTitle, MenuItem, Select, FormControl, InputLabel, Card, CardContent, CardMedia } from '@mui/material';
-import { DateRange, Language, Star, ThumbUp, Visibility } from '@mui/icons-material';
+import { Box, Typography, Grid, Button, Dialog, DialogContent, DialogTitle, MenuItem, Select, FormControl, InputLabel, Card, CardContent, CardMedia, Chip, Menu } from '@mui/material';
+import { DateRange, Language, Star, ThumbUp, Visibility, Add, ArrowDropDown } from '@mui/icons-material';
 import axios from 'axios';
 import { getMovieDetailsFromSession } from '../utils/MovieInDetail';
 
 // TMDB API Key (replace with your actual key)
 const TMDB_API_KEY = '8f05a199269e9918674817c9425bf4dd';
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-const iconStyle = { color: '#1976d2', marginRight: '0.5rem' };
 
 const MovieDetail = () => {
     const [genres, setGenres] = useState([]);
@@ -17,9 +16,23 @@ const MovieDetail = () => {
     const [movieVideos, setMovieVideos] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);
     const [searchedMovie, setSearchedMovie] = useState(null);
-    const [searchedMovieTrailer, setSearchedMovieTrailer] = useState(null);  // To store searched movie's trailer
+    const [searchedMovieTrailer, setSearchedMovieTrailer] = useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
 
-    // Fetch genres
+    const handleWatchlistClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleWatchlistClose = () => {
+        setAnchorEl(null);
+    };
+
+    const searchedMovies = {
+        genres: ["Adventure Epic", "Science", "Science fiction", "Action", "Western", "Fantasy"],
+        creators: ["Patrick McKay", "John D. Payne"],
+        stars: ["Morfydd Clark", "Charlie Vickers", "Markella Kavenagh"],
+    };
+
     useEffect(() => {
         const fetchGenres = async () => {
             try {
@@ -107,83 +120,149 @@ const MovieDetail = () => {
     return (
         <Box padding="2rem">
             {searchedMovie ? (
-                <Box marginBottom="2rem">
-                    <Grid container spacing={3}>
+                <Box marginBottom="2rem" sx={{ backgroundColor: '#333', color: '#f0f0f0', padding: '2rem', borderRadius: '0.5rem' }}>
+                    <Grid container spacing={2} overflow={'hidden'}>
                         {/* Movie Image */}
                         <Grid item xs={12} md={6}>
-                            <Typography variant="h4" marginBottom="1rem" marginLeft={'5rem'}>
+                            <Typography variant="h4" marginBottom="1rem" marginLeft={'5rem'} color="#fff">
                                 {searchedMovie.title}
                             </Typography>
-                                <CardMedia
-                                    component="img"
-                                    image={`https://image.tmdb.org/t/p/w500${searchedMovie.poster_path}`}
-                                    alt={searchedMovie.title}
-                                    style={{ width: '25rem', height: '30rem', objectFit: 'fill', marginLeft: '5rem', borderRadius: '0.5rem' }}
-                                />
+                            <CardMedia
+                                component="img"
+                                image={`https://image.tmdb.org/t/p/w500${searchedMovie.poster_path}`}
+                                alt={searchedMovie.title}
+                                style={{
+                                    width: '25rem',
+                                    height: '30rem',
+                                    objectFit: 'fill',
+                                    marginLeft: '5rem',
+                                    borderRadius: '0.5rem',
+                                }}
+                            />
                         </Grid>
 
                         {/* Trailer */}
-                        <Grid item xs={12} md={6}>
-                            <Grid item xs={12} md={6} display="flex" alignItems="center">
-                                <Star style={iconStyle} />
-                                <Typography variant="subtitle1" color="textSecondary">
-                                    Vote Average: {searchedMovie.vote_average} / 10
-                                </Typography>
-                                <Grid item xs={12} md={6} display="flex" alignItems="center" marginLeft={'1rem'}>
-                                    <ThumbUp style={iconStyle} />
-                                    <Typography variant="subtitle1" color="textSecondary">
+                        <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                            <Grid container spacing={0.5} alignItems="center" sx={{ marginBottom: '1rem', marginLeft: '11rem' }}>
+                                <Grid item xs={6} display="flex" alignItems="center">
+                                    <Star style={{ color: '#FFD700', marginRight: '0.5rem' }} />
+                                    <Typography variant="subtitle1" sx={{ color: '#fff' }}>
+                                        Vote Average: {searchedMovie.vote_average} / 10
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={6} display="flex" alignItems="center">
+                                    <ThumbUp style={{ color: '#1E90FF', marginRight: '0.5rem' }} />
+                                    <Typography variant="subtitle1" sx={{ color: '#fff' }}>
                                         Vote Count: {searchedMovie.vote_count}
                                     </Typography>
                                 </Grid>
                             </Grid>
+
                             {searchedMovieTrailer && (
-                                    <CardContent sx={{ height: '105%', display: 'flex', flexDirection: 'column' }}>
-                                        <Box sx={{ flexGrow: 1 }}>
-                                            <iframe
-                                                width="100%"
-                                                height="90%"
-                                                src={`https://www.youtube.com/embed/${searchedMovieTrailer}`}
-                                                title="Trailer"
-                                                frameBorder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowFullScreen
-                                                style={{ borderRadius: '0.5rem' }}
-                                            />
-                                        </Box>
-                                    </CardContent>
+                                <Box sx={{ width: '100%', position: 'relative' }}>
+                                    <iframe
+                                        width="100%"
+                                        height="500"
+                                        src={`https://www.youtube.com/embed/${searchedMovieTrailer}`}
+                                        title="Trailer"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        style={{ borderRadius: '0.5rem' }}
+                                    />
+                                    <Typography
+                                        variant="subtitle1"
+                                        sx={{
+                                            position: 'absolute',
+                                            bottom: '10px',
+                                            left: '10px',
+                                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                                            color: '#fff',
+                                            padding: '5px 10px',
+                                            borderRadius: '0.3rem',
+                                        }}
+                                    >
+                                        Play Trailer
+                                    </Typography>
+                                </Box>
                             )}
                         </Grid>
                     </Grid>
 
-                    {/* Movie Details */}
-                    <Card sx={{ marginTop: '1rem' }}>
                         <CardContent>
                             <Grid container spacing={2} alignItems="center">
                                 <Grid item xs={12} md={6} display="flex" alignItems="center">
-                                    <DateRange style={iconStyle} />
-                                    <Typography variant="subtitle1" color="textSecondary">
+                                    <DateRange style={{ color: '#fff', marginRight: '0.5rem' }} />
+                                    <Typography variant="subtitle1" color="#fff">
                                         {new Date(searchedMovie.release_date).toLocaleDateString()}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} md={6} display="flex" alignItems="center">
-                                    <Language style={iconStyle} />
-                                    <Typography variant="subtitle1" color="textSecondary">
+                                    <Language style={{ color: '#fff', marginRight: '0.5rem' }} />
+                                    <Typography variant="subtitle1" color="#fff">
                                         {searchedMovie.original_language.toUpperCase()}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} md={6} display="flex" alignItems="center">
-                                    <Visibility style={iconStyle} />
-                                    <Typography variant="subtitle1" color="textSecondary">
+                                    <Visibility style={{ color: '#fff', marginRight: '0.5rem' }} />
+                                    <Typography variant="subtitle1" color="#fff">
                                         {searchedMovie.popularity}
                                     </Typography>
                                 </Grid>
                             </Grid>
-                            <Typography variant="body1" marginTop="1rem" paragraph>
-                                Overview: {searchedMovie.overview}
-                            </Typography>
+                        <Typography variant="body1" marginTop="1rem" paragraph color="#fff">
+                            Overview: {searchedMovie.overview}
+                        </Typography>
+
+                        {/* Genres */}
+                        <Box marginBottom="1rem">
+                            {searchedMovies.genres.map((genre, index) => (
+                                <Chip
+                                    key={index}
+                                    label={genre}
+                                    variant="outlined"
+                                    sx={{ marginRight: '0.5rem', color: '#fff', borderColor: '#fff' }}
+                                />
+                            ))}
+                        </Box>
+
+                        {/* Creators and Stars */}
+                        <Card sx={{ marginTop: '2rem', backgroundColor: '#444', color: '#f0f0f0' }}>
+                            <CardContent>
+                                <Typography variant="h6" color="#fff">
+                                    Creators: {searchedMovies.creators.join(', ')}
+                                </Typography>
+                                <Typography variant="h6" color="#fff">
+                                    Stars: {searchedMovies.stars.join(', ')}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+
+                        <Box marginTop="2rem" display={"flex"} justifyContent={"end"}>
+                            <Button
+                                variant="contained"
+                                startIcon={<Add />}
+                                endIcon={<ArrowDropDown />}
+                                sx={{ backgroundColor: '#FFD700', color: '#000', textTransform: 'none', ":hover": { backgroundColor: 'yellowgreen', color: '#000' } }}
+                                onClick={handleWatchlistClick}
+                            >
+                                Add to Watchlist
+                            </Button>
+                            <Menu
+                                anchorEl={anchorEl}
+                                open={Boolean(anchorEl)}
+                                onClose={handleWatchlistClose}
+                                sx={{ mt: '1rem' }}
+                            >
+                                <MenuItem onClick={handleWatchlistClose}>New List</MenuItem>
+                                <MenuItem onClick={handleWatchlistClose}>My Favorite Shows</MenuItem>
+                                <MenuItem onClick={handleWatchlistClose}>Watch Later</MenuItem>
+                            </Menu>
+                        </Box>
                         </CardContent>
-                    </Card>
+                        
                 </Box>
+
             ) : (
                 <Typography variant="h6">No movie details available</Typography>
             )}
