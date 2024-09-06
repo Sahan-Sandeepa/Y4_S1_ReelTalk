@@ -1,6 +1,8 @@
-import { Box, Typography, Avatar } from "@mui/material";
-// eslint-disable-next-line no-unused-vars
-import React, { memo } from "react";
+import { Box, Typography, Avatar, IconButton, Button } from "@mui/material";
+import ThumbDownAltTwoToneIcon from '@mui/icons-material/ThumbDownAltTwoTone';
+import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
+import DoneAllTwoToneIcon from '@mui/icons-material/DoneAllTwoTone';
+import { memo } from "react";
 import PropTypes from 'prop-types';
 import { lightBlue } from "../../constants/Color";
 import moment from "moment";
@@ -14,6 +16,17 @@ const MessageComponent = ({ message, user }) => {
   const timeAgo = moment(createdAt).fromNow();
   const avatarUrl = user.avatar?.url;
   const firstLetter = user.name[0]?.toUpperCase();
+
+  const handleApprove = (attachment) => {
+    console.log("Approved", attachment);
+    // Add further logic here
+  };
+
+  const handleReject = (attachment) => {
+    console.log("Rejected", attachment);
+    // Add further logic here
+  };
+
 
   return (
     <motion.div
@@ -55,7 +68,11 @@ const MessageComponent = ({ message, user }) => {
       )}
 
       <Box>
-        {content && <Typography variant="body1" style={{ marginBottom: '0.1rem' }}>{content}</Typography>}
+        {content && (
+          <Typography variant="body1" style={{ marginBottom: "0.1rem" }}>
+            {content}
+          </Typography>
+        )}
 
         {attachments.length > 0 &&
           attachments.map((attachment, index) => {
@@ -75,14 +92,65 @@ const MessageComponent = ({ message, user }) => {
                 >
                   {RenderAttachment(file, url)}
                 </a>
+                
+                {(file === "image" || file === "video") && (
+                  <Box display="flex" flexDirection="column" marginTop="0.5rem" sx={{ width: "100%" }}>
+                    {/* Approve Section */}
+                    <Button
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        border: "1px solid green",
+                        borderRadius: "1rem",
+                        padding: "0.5rem",
+                        maxWidth: "9.5rem",
+                        maxHeight: "2rem",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
+                      <Typography variant="body2" sx={{ color: "#55cc00" }}>
+                        Approve
+                      </Typography>
+                      <IconButton color="success" onClick={() => handleApprove('Hi')}>
+                        <CheckCircleTwoToneIcon sx={{ color: "#55cc00" }} />
+                      </IconButton>
+                    </Button>
+
+                    {/* Reject Section */}
+                    <Button
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        border: "1px solid red",
+                        borderRadius: "1rem",
+                        maxWidth: "9.5rem",
+                        maxHeight: "2rem",
+                        padding: "0.5rem",
+                      }}
+                    >
+                      <Typography variant="body2" sx={{ color: "red" }}>
+                        Reject
+                      </Typography>
+                      <IconButton color="error" onClick={() => handleReject('Bye')}>
+                        <ThumbDownAltTwoToneIcon sx={{ color: "red" }} />
+                      </IconButton>
+                    </Button>
+                  </Box>
+                )}
               </Box>
             );
           })}
-      </Box>
 
-      <Typography variant="caption" color={"text.secondary"} marginTop="0.1rem">
-        {timeAgo}
-      </Typography>
+        {/* Time and DoneAll Icon */}
+        <Box display="flex" alignItems="center" marginTop="0.1rem">
+          <Typography variant="caption" color={"text.secondary"}>
+            {timeAgo}
+          </Typography>
+          <DoneAllTwoToneIcon fontSize="small" sx={{ color: "gray", marginLeft: "3.5rem" }} />
+        </Box>
+      </Box>
     </motion.div>
   );
 };
