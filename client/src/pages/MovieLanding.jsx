@@ -10,6 +10,7 @@ import ReplyIcon from '@mui/icons-material/Reply';
 import RecommendIcon from '@mui/icons-material/Recommend';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import BottomAppBar from '../utils/BottomAppBar';
+import VisibilityOffTwoToneIcon from '@mui/icons-material/VisibilityOffTwoTone';
 import CTA26 from '../assets/components/cta26'
 import Footer from '../assets/components/footer'
 import '../components/styles/landing.css'
@@ -23,6 +24,7 @@ const categories = [
   { title: 'Upcoming Movies', query: 'fast and furious' },
   { title: 'Action Movies', query: 'action' },
   { title: 'Comedy Movies', query: 'comedy' },
+  { title: 'X-rated Movies', query: 'Sex' },
 ];
 
 const Landing = () => {
@@ -68,9 +70,9 @@ const Landing = () => {
     fetchMovies();
   }, []);
 
-  const handleMenuClick = (event, movie) => {
+  const handleMenuClick = (event, movie, category) => {
     setAnchorEl(event.currentTarget);
-    setSelectedMovie(movie);
+    setSelectedMovie({ ...movie, categoryTitle: category.title });
   };
 
   const handleClose = () => {
@@ -116,6 +118,20 @@ const Landing = () => {
     display: 'flex',
     flexWrap: 'wrap',
     gap: '20px',
+  };
+
+  const blurredImageStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '68%',
+    height: '70%',
+    backgroundColor: '#000',
+    marginLeft: '50px',
+    marginTop: '10px',
+    borderRadius: '6px',
+    color: '#fff',
+    flexDirection: 'column',
   };
 
   const movieCardStyle = {
@@ -188,11 +204,18 @@ const Landing = () => {
               <div style={movieListStyle}>
                 {movies[index]?.map((movie) => (
                   <div key={movie.dynamicID} style={movieCardStyle}>
-                    <img
-                      src={movie.Poster}
-                      alt={movie.Title}
-                      style={movieImageStyle}
-                    />
+                    {category.title === 'X-rated Movies' && user.age < 18 ? (
+                      <div style={blurredImageStyle}>
+                        <VisibilityOffTwoToneIcon style={{ fontSize: '50px', color: '#fff' }} />
+                        <div style={{ fontSize: '10px' }}>This image may contain explicit content.</div>
+                      </div>
+                    ) : (
+                      <img
+                        src={movie.Poster}
+                        alt={movie.Title}
+                        style={movieImageStyle}
+                      />
+                    )}
                     <div style={movieTitleStyle}>{movie.Title}</div>
                     <div style={movieDescriptionStyle}>
                       {movie.Year} | {movie.Type}
@@ -202,9 +225,9 @@ const Landing = () => {
                         position: 'absolute',
                         bottom: '10px',
                         right: '10px',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
                       }}
-                      onClick={(e) => handleMenuClick(e, movie)}
+                      onClick={(e) => handleMenuClick(e, movie, category)}
                     />
                   </div>
                 ))}
@@ -235,7 +258,7 @@ const Landing = () => {
             <RecommendIcon style={iconStyle} />
             Recommend
           </MenuItem>
-          {user.age < 18 && (
+          {selectedMovie?.categoryTitle === 'X-rated Movies' && user.age < 18 && (
             <MenuItem
               onClick={() => handleShareOrRequestClick('Request')}
               style={menuItemStyle}
