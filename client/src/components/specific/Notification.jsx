@@ -33,18 +33,17 @@ const Notifications = () => {
 
   useErrors([{ error, isError }]);
 
-  // Function to handle individual accept/reject
   const friendRequestHandler = async ({ _id, accept }) => {
     await acceptRequest("Processing...", { requestId: _id, accept });
+    closeHandler();
   };
 
-  // Function to handle bulk accept/reject
   const bulkActionHandler = async (accept) => {
-    if (data && data.allRequests) {  // Ensure data and allRequests are defined
+    if (data && data.allRequests) {
       for (const { _id } of data.allRequests) {
         await friendRequestHandler({ _id, accept });
       }
-      closeHandler(); // Close the notification dialog after bulk action
+      closeHandler();
     }
   };
 
@@ -93,47 +92,35 @@ const Notifications = () => {
 };
 
 const NotificationItem = memo(({ sender, _id, handler }) => {
-  const { name } = sender;
+  const { name, avatar } = sender;
   return (
     <ListItem>
-      <Stack
-        direction={"row"}
-        alignItems={"center"}
-        spacing={"1rem"}
-        width={"100%"}
-      >
-        <Avatar />
-
+      <Stack direction={"row"} alignItems={"center"} spacing={"1rem"} width={"100%"}>
+        <Avatar src={avatar} />
         <Typography
           variant="body1"
           sx={{
-            flexGlow: 1,
-            display: "-webkit-box",
-            WebkitLineClamp: 1,
-            WebkitBoxOrient: "vertical",
+            flexGrow: 1,
             overflow: "hidden",
             textOverflow: "ellipsis",
-            width: "100%",
+            maxWidth: "300px",
+            whiteSpace: "nowrap"
           }}
         >
-          {`${name} sent you a friend request.`}
+          <Tooltip title={`${name} wants to add you as a friend.`} arrow>
+            <span>{`${name} wants to add you as a friend.`}</span>
+          </Tooltip>
         </Typography>
-
-        <Stack
-          direction={"row"}
-          spacing={1}
-          width="100%"
-          justifyContent="space-between"
-        >
+        <Stack direction={"row"} spacing={1} width="100%" justifyContent="space-between">
           <Button
             fullWidth
-            variant="contained"
+            variant="outlined"
             sx={{
               borderRadius: "8px",
-              backgroundColor: "#6C63FF", // Replace with your preferred color
+              backgroundColor: "#6C63FF",
               color: "#fff",
               '&:hover': {
-                backgroundColor: "#5348C7" // Replace with your preferred hover color
+                backgroundColor: "#5348C7"
               }
             }}
             onClick={() => handler({ _id, accept: true })}
@@ -148,7 +135,7 @@ const NotificationItem = memo(({ sender, _id, handler }) => {
               borderColor: "#D32F2F",
               color: "#D32F2F",
               '&:hover': {
-                backgroundColor: "rgba(211, 47, 47, 0.1)", // Add a subtle hover effect
+                backgroundColor: "rgba(211, 47, 47, 0.1)",
               }
             }}
             onClick={() => handler({ _id, accept: false })}
@@ -166,6 +153,7 @@ NotificationItem.displayName = "NotificationItem";
 NotificationItem.propTypes = {
   sender: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
   }).isRequired,
   _id: PropTypes.string.isRequired,
   handler: PropTypes.func.isRequired,
