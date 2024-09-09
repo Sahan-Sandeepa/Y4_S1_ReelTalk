@@ -4,12 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import { transformImage } from "../../libs/Features";
 import { FileOpen as FileOpenIcon } from "@mui/icons-material";
 
-const RenderAttachment = (file, url) => {
+const RenderAttachment = (file, url, isApproved, userAge) => {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
-    e.preventDefault();
-    navigate('/movie-detail', { state: { url } });
+    if (userAge < 18 && isApproved === false) {
+      e.preventDefault();
+    } else {
+      navigate('/movie-detail', { state: { url } });
+    }
+  };
+
+  const commonStyles = {
+    borderRadius: "8px",
+    cursor: "pointer",
   };
 
   switch (file) {
@@ -20,10 +28,7 @@ const RenderAttachment = (file, url) => {
           preload="none"
           width="200px"
           controls
-          style={{
-            borderRadius: "8px",
-            objectFit: "cover",
-          }}
+          style={commonStyles}
         />
       );
 
@@ -35,9 +40,8 @@ const RenderAttachment = (file, url) => {
           width="150px"
           height="200px"
           style={{
-            objectFit: "fill",
-            borderRadius: "8px",
-            cursor: "pointer",
+            ...commonStyles,
+            filter: userAge < 18 && !isApproved ? "blur(5px)" : "none",
           }}
           onClick={handleClick}
         />
@@ -49,7 +53,7 @@ const RenderAttachment = (file, url) => {
           src={url}
           preload="none"
           controls
-          style={{ borderRadius: "8px" }}
+          style={commonStyles}
         />
       );
 
