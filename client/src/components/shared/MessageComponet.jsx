@@ -11,11 +11,28 @@ import RenderAttachment from "./RenderAttachment";
 import { motion } from "framer-motion";
 
 const MessageComponent = ({ message, user }) => {
+  console.log(' -----------------------------');
+  console.log('MessageComponent  user:', user.age);
+  console.log(' -----------------------------');
+
   const { sender, content, attachments = [], createdAt } = message;
+  console.log(' -----------------------------------');
+  console.log('MessageComponent  content:', content);
+  console.log(' -----------------------------------');
+
+  console.log(' -------------------------------------------');
+  console.log('MessageComponent  attachments:', attachments);
+  console.log(' -------------------------------------------');
+
+  console.log(' ---------------------------------');
+  console.log('MessageComponent  sender:', sender);
+  console.log(' ---------------------------------');
+
   const sameSender = sender?._id === user?._id;
   const timeAgo = moment(createdAt).fromNow();
   const avatarUrl = user.avatar?.url;
   const firstLetter = user.name[0]?.toUpperCase();
+  const isApproved = false
 
   const handleApprove = (attachment) => {
     console.log("Approved", attachment);
@@ -91,7 +108,7 @@ const MessageComponent = ({ message, user }) => {
                   }}
                   onClick={(e) => e.preventDefault()}
                 >
-                  {RenderAttachment(file, url)}
+                  {RenderAttachment(file, url, isApproved, user.age)}
                 </a>
 
                 {((file === "image" || file === "video") && user.age >= 18) && (
