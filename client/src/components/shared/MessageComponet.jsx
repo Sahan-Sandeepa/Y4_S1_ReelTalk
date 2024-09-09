@@ -6,7 +6,7 @@ import { memo } from "react";
 import PropTypes from 'prop-types';
 import { lightBlue } from "../../constants/Color";
 import moment from "moment";
-import { fileFormat } from "../../libs/Features"; 
+import { fileFormat } from "../../libs/Features";
 import RenderAttachment from "./RenderAttachment";
 import { motion } from "framer-motion";
 
@@ -32,7 +32,7 @@ const MessageComponent = ({ message, user }) => {
     <motion.div
       initial={{ opacity: 0, x: "-100%" }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }} 
+      transition={{ duration: 0.5 }}
       style={{
         alignSelf: sameSender ? "flex-end" : "flex-start",
         backgroundColor: "white",
@@ -93,7 +93,7 @@ const MessageComponent = ({ message, user }) => {
                 >
                   {RenderAttachment(file, url)}
                 </a>
-                
+
                 {((file === "image" || file === "video") && user.age >= 18) && (
                   <Box display="flex" flexDirection="column" marginTop="0.5rem" sx={{ width: "100%" }}>
                     {/* Approve Section */}
@@ -106,15 +106,15 @@ const MessageComponent = ({ message, user }) => {
                         borderRadius: "1rem",
                         padding: "0.5rem",
                         maxWidth: "9.5rem",
-                        maxHeight: "2rem",
+                        maxHeight: "1.5rem",
                         marginBottom: "0.5rem",
                       }}
                     >
-                      <Typography variant="body2" sx={{ color: "#55cc00" }}>
+                      <Typography variant="body2" sx={{ color: "#55cc00", fontSize: "0.8rem" }}>
                         Approve
                       </Typography>
                       <IconButton color="success" onClick={() => handleApprove('Hi')}>
-                        <CheckCircleTwoToneIcon sx={{ color: "#55cc00" }} />
+                        <CheckCircleTwoToneIcon fontSize="small" sx={{ color: "#55cc00" }} />
                       </IconButton>
                     </Button>
 
@@ -127,15 +127,15 @@ const MessageComponent = ({ message, user }) => {
                         border: "1px solid red",
                         borderRadius: "1rem",
                         maxWidth: "9.5rem",
-                        maxHeight: "2rem",
+                        maxHeight: "1.5rem",
                         padding: "0.5rem",
                       }}
                     >
-                      <Typography variant="body2" sx={{ color: "red" }}>
+                      <Typography variant="body2" sx={{ color: "red", fontSize: "0.8rem" }}>
                         Reject
                       </Typography>
                       <IconButton color="error" onClick={() => handleReject('Bye')}>
-                        <ThumbDownAltTwoToneIcon sx={{ color: "red" }} />
+                        <ThumbDownAltTwoToneIcon fontSize="small" sx={{ color: "red" }} />
                       </IconButton>
                     </Button>
                   </Box>
@@ -176,7 +176,7 @@ MessageComponent.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     avatar: PropTypes.shape({
-      url: PropTypes.string,      
+      url: PropTypes.string,
     }),
     age: PropTypes.number,
     name: PropTypes.string,
