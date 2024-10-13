@@ -126,6 +126,7 @@ const BottomAppBar = ({ selectedAction, movie }) => {
               chatId={chatId}
               onChatSelect={sendMoviePosterToChat}
               onlineUsers={onlineUsers}
+              selectedAction={selectedAction}
             />
           )}
         </List>
