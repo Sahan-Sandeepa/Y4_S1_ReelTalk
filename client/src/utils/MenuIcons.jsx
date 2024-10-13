@@ -1,5 +1,7 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
@@ -13,6 +15,9 @@ const MenuPopupState = ({
     mode,
     sx = {}
 }) => {
+    const { user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
+
     return (
         <PopupState variant="popover" popupId="menu-popup-menu">
             {(popupState) => (
@@ -27,6 +32,29 @@ const MenuPopupState = ({
                         <MenuItem onClick={() => { navigateToGroup(); popupState.close(); }}>
                             Manage Groups
                         </MenuItem>
+
+                        {/* Conditional rendering for Monitoring based on user age */}
+                        {user?.age >= 18 && (
+                            <MenuItem
+                                onClick={() => {
+                                    navigate('/admin');  // Navigate to /admin on click
+                                    popupState.close();
+                                }}
+                            >
+                                Monitoring
+                            </MenuItem>
+                        )}
+
+                        {/* New 'My Chats' Section */}
+                        <MenuItem
+                            onClick={() => {
+                                navigate('/Home/chat');  // Navigate to /Home/chat on click
+                                popupState.close();
+                            }}
+                        >
+                            My Chats
+                        </MenuItem>
+
                         <MenuItem onClick={() => { logoutHandler(); popupState.close(); }}>
                             Logout
                         </MenuItem>
