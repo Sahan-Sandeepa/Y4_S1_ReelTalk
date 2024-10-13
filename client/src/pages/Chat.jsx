@@ -82,6 +82,7 @@ const Chat = ({ chatId, user }) => {
   ];
 
   const members = chatDetails?.data?.chat?.members;
+  const chatName = chatDetails?.data?.chat?.name;
 
   const handleFileOpen = (e) => {
     dispatch(setIsFileMenu(true));
@@ -261,7 +262,7 @@ const Chat = ({ chatId, user }) => {
         }}
       >
         {allMessages.map((i) => (
-          <MessageComponent key={i._id} message={i} user={user} />
+          <MessageComponent key={i._id} message={i} user={user} chatName={chatName} />
         ))}
 
         {userTyping && <TypingLoader />}
