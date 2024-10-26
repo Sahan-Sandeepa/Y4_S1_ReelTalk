@@ -159,7 +159,7 @@ const Login = () => {
           {isLogin ? (
             <>
               <Typography variant="h4" color={'black'} sx={{ fontSize: '18px', lineHeight: '22px' }} gutterBottom>
-                Log in to ReelTalk
+                Log in to FamilyFrame
               </Typography>
               <form
                 style={{ width: "100%", marginTop: "1rem" }}
