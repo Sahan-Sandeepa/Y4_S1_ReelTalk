@@ -11,7 +11,7 @@ import RecommendIcon from '@mui/icons-material/Recommend';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import BottomAppBar from '../utils/BottomAppBar';
 import VisibilityOffTwoToneIcon from '@mui/icons-material/VisibilityOffTwoTone';
-import CTA26 from '../assets/components/cta26'
+// import CTA26 from '../assets/components/cta26'
 import Footer from '../assets/components/footer'
 import '../components/styles/landing.css'
 import './../assets/components/navbar.css'
@@ -274,7 +274,7 @@ const Landing = () => {
           <BottomAppBar selectedAction={selectedAction} movie={selectedMovie} />
         )}
 
-        <CTA26
+        {/* <CTA26
           heading1={
             <Fragment>
               <span className="landing-text124 thq-heading-1">
@@ -294,7 +294,7 @@ const Landing = () => {
               <span className="landing-text126">Create Group</span>
             </Fragment>
           }
-        />
+        /> */}
 
         <Footer
           title={
