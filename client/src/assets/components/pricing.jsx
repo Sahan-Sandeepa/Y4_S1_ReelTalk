@@ -1,7 +1,5 @@
 import { useState } from 'react'
-
 import PropTypes from 'prop-types'
-
 import './pricing.css'
 
 const Pricing = (props) => {
