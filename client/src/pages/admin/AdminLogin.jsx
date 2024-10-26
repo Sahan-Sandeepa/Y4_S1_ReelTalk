@@ -17,17 +17,16 @@ import { adminLogin } from "../../redux/thunks/admin";
 const AdminLogin = () => {
   const { isAdmin } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
-  const secretKey = "sample admin kjey"; // Automatically pass this key
+  const secretKey = "sample admin kjey";
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(adminLogin(secretKey));
   };
 
-  useEffect(() => {
-    dispatch(adminLogin(secretKey)); // Automatically trigger login with secret key
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(adminLogin(secretKey));
+  // }, [dispatch]);
 
   if (isAdmin) return <Navigate to="/admin/dashboard" />;
 
