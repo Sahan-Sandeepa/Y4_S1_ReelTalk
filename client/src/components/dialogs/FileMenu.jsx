@@ -65,7 +65,7 @@ const FileMenu = ({ anchorEl, chatId }) => {
   };
 
   return (
-    <Menu anchorEl={anchorEl} open={isFileMenu} onClose={closeFileMenu}>
+    <Menu anchorEl={anchorEl} open={isFileMenu} onClose={closeFileMenu} sx={{ marginLeft: '324px', 'marginTop': '-45px' }}>
       <div
         style={{
           width: "10rem",
