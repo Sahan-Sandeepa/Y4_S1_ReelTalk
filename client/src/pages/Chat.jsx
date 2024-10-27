@@ -172,7 +172,7 @@ const Chat = ({ chatId, user }) => {
       const result = await response.json();
 
       if (result.prediction === 1) {
-        return 'Your message contains inappropriate content.';
+        return 'Your message contains inappropriate content. That could be negative if there are children in this chat.';
       }
       return null;
     } catch (error) {
