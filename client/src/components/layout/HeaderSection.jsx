@@ -13,15 +13,16 @@ import Diversity1Icon from '@mui/icons-material/Diversity1';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import MenuPopupState from '../../utils/MenuIcons';
+import { Link } from 'react-router-dom';
 
-const Layout = ({ 
-    children, 
-    navigateToGroup, 
-    openNewGroup, 
-    openSearch, 
-    openNotification, 
-    logoutHandler, 
-    notificationCount 
+const Layout = ({
+    children,
+    navigateToGroup,
+    openNewGroup,
+    openSearch,
+    openNotification,
+    logoutHandler,
+    notificationCount
 }) => {
     const { mode, toggleMode } = useTheme();
 
@@ -36,9 +37,11 @@ const Layout = ({
                 }}
             >
                 <Toolbar sx={{ justifyContent: 'space-between' }}>
-                    <Typography variant="h6" component="div" sx={{ color: mode === 'dark' ? '#fff' : '#202020' }}>
-                        FamilyFrame
-                    </Typography>
+                    <Link to="/landing" style={{ textDecoration: 'none' }}>
+                        <Typography variant="h6" component="div" sx={{ color: mode === 'dark' ? '#fff' : '#202020' }}>
+                            FamilyFrame
+                        </Typography>
+                    </Link>
                     <Box>
                         <IconBtn
                             title={"Create New Group"}
