@@ -10,12 +10,12 @@ import { useErrors } from "../../hooks/hook";
 import { transformImage } from "../../libs/Features";
 
 const columns = [
-  {
-    field: "id",
-    headerName: "ID",
-    headerClassName: "table-header",
-    width: 200,
-  },
+  // {
+  //   field: "id",
+  //   headerName: "ID",
+  //   headerClassName: "table-header",
+  //   width: 200,
+  // },
   {
     field: "avatar",
     headerName: "Avatar",
