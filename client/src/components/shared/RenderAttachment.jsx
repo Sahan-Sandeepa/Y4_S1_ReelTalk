@@ -4,58 +4,34 @@ import { useNavigate } from 'react-router-dom';
 import { transformImage } from "../../libs/Features";
 import { FileOpen as FileOpenIcon } from "@mui/icons-material";
 
-const RenderAttachment = (file, url, isApproved, userAge) => {
+// eslint-disable-next-line no-unused-vars
+const RenderAttachment = (file, url, link, isApproved, age) => {
   const navigate = useNavigate();
-
   const handleClick = (e) => {
-    if (userAge < 18 && isApproved === false) {
-      e.preventDefault();
-    } else {
-      navigate('/movie-detail', { state: { url } });
-    }
-  };
-
-  const commonStyles = {
-    borderRadius: "8px",
-    cursor: "pointer",
-  };
+    e.preventDefault();
+    navigate(`/movie-detail?param=${link}`);
+  }
 
   switch (file) {
     case "video":
-      return (
-        <video
-          src={url}
-          preload="none"
-          width="200px"
-          controls
-          style={commonStyles}
-        />
-      );
+      return <video src={url} preload="none" width={"200px"} controls />;
 
     case "image":
       return (
         <img
           src={transformImage(url, 200)}
-          alt="Attachment"
-          width="150px"
-          height="200px"
+          alt="Attachement"
+          width={"200px"}
+          height={"150px"}
           style={{
-            ...commonStyles,
-            filter: userAge < 18 && !isApproved ? "blur(5px)" : "none",
+            objectFit: "contain",
           }}
           onClick={handleClick}
         />
       );
 
     case "audio":
-      return (
-        <audio
-          src={url}
-          preload="none"
-          controls
-          style={commonStyles}
-        />
-      );
+      return <audio src={url} preload="none" controls />;
 
     default:
       return <FileOpenIcon />;
