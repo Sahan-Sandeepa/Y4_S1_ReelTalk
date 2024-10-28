@@ -16,7 +16,6 @@ const useAsyncMutation = (mutationHook) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState(null);
   const [mutate] = mutationHook();
-
   const executeMutation = async (toastMessage, ...args) => {
     setIsLoading(true);
     const toastId = toast.loading(toastMessage || "Updating data...");

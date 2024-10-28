@@ -12,7 +12,6 @@ import { fileFormat } from "../../libs/Features";
 import RenderAttachment from "./RenderAttachment";
 import { motion } from "framer-motion";
 
-// eslint-disable-next-line react/prop-types
 const MessageComponent = ({ message, user, chatName }) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);

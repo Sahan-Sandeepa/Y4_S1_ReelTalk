@@ -17,7 +17,6 @@ import '../components/styles/landing.css'
 import './../assets/components/navbar.css'
 
 const API_KEY = 'aef6913e';
-
 const categories = [
   { title: 'Popular Movies', query: 'Avengers' },
   { title: 'Top Rated Movies', query: 'Deadpool' },
@@ -26,7 +25,6 @@ const categories = [
   { title: 'Comedy Movies', query: 'comedy' },
   { title: 'X-rated Movies', query: 'Sex' },
 ];
-
 const Landing = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);

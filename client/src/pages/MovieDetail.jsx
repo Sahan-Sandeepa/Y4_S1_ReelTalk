@@ -23,15 +23,12 @@ const MovieDetail = () => {
     const [searchedMovie, setSearchedMovie] = useState(null);
     const [searchedMovieTrailer, setSearchedMovieTrailer] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
-
     const handleWatchlistClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
     const handleWatchlistClose = () => {
         setAnchorEl(null);
     };
-
     const searchedMovies = {
         genres: ["Adventure Epic", "Science", "Science fiction", "Action", "Western", "Fantasy"],
         creators: ["Patrick McKay", "John D. Payne"],

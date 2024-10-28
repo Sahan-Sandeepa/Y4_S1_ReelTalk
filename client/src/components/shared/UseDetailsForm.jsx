@@ -17,7 +17,6 @@ const UserDetailsForm = ({ onClose }) => {
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [birthDate, setBirthDate] = useState(null);
-
   const handleDateChange = (date) => {
     setBirthDate(date);
   };

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 
 const Title = ({
-  title = "Chat App",
+  title = "FamilyFrame",
   description = "this is the Chat App called",
 }) => {
   return (

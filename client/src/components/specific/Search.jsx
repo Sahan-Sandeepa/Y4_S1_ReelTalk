@@ -21,23 +21,16 @@ import UserItem from "../shared/UserItem";
 
 const Search = () => {
   const { isSearch } = useSelector((state) => state.misc);
-
   const [searchUser] = useLazySearchUserQuery();
-
   const [sendFriendRequest, isLoadingSendFriendRequest] = useAsyncMutation(
     useSendFriendRequestMutation
   );
-
   const dispatch = useDispatch();
-
   const search = useInputValidation("");
-
   const [users, setUsers] = useState([]);
-
   const addFriendHandler = async (id) => {
     await sendFriendRequest("Sending friend request...", { userId: id });
   };
-
   const searchCloseHandler = () => dispatch(setIsSearch(false));
 
   useEffect(() => {

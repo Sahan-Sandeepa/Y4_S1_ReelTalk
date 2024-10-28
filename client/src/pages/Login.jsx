@@ -26,11 +26,9 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [birthDate, setBirthDate] = useState(null);
-
   const handleDateChange = (date) => {
     setBirthDate(date);
   };
-
   const calculateAge = (date) => {
     if (!date) return null;
     const today = new Date();
@@ -85,21 +83,15 @@ const Login = () => {
   };
 
   const toggleLogin = () => setIsLogin((prev) => !prev);
-
   const name = useInputValidation("");
   const bio = useInputValidation("");
   const username = useInputValidation("", usernameValidator);
   const password = useInputValidation("");
-
   const avatar = useFileHandler("single");
-
   const dispatch = useDispatch();
-
   const handleLogin = async (e) => {
     e.preventDefault();
-
     const toastId = toast.loading("Logging In...");
-
     setIsLoading(true);
     const config = {
       withCredentials: true,

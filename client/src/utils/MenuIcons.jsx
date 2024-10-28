@@ -32,12 +32,10 @@ const MenuPopupState = ({
                         <MenuItem onClick={() => { navigateToGroup(); popupState.close(); }}>
                             Manage Groups
                         </MenuItem>
-
-                        {/* Conditional rendering for Monitoring based on user age */}
                         {user?.age >= 18 && (
                             <MenuItem
                                 onClick={() => {
-                                    navigate('/admin');  // Navigate to /admin on click
+                                    navigate('/admin');
                                     popupState.close();
                                 }}
                             >
@@ -48,7 +46,7 @@ const MenuPopupState = ({
                         {/* New 'My Chats' Section */}
                         <MenuItem
                             onClick={() => {
-                                navigate('/Home/chat');  // Navigate to /Home/chat on click
+                                navigate('/Home/chat');
                                 popupState.close();
                             }}
                         >

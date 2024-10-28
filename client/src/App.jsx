@@ -20,7 +20,6 @@ const Chat = lazy(() => import("./pages/Chat"));
 const Groups = lazy(() => import("./pages/Groups"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Landing = lazy(() => import("./pages/MovieLanding"));
-
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const UserManagement = lazy(() => import("./pages/admin/UserManagement"));
@@ -30,7 +29,6 @@ const MovieDetail = lazy(() => import("./pages/MovieDetail"))
 
 const App = () => {
   const { user, loader } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
