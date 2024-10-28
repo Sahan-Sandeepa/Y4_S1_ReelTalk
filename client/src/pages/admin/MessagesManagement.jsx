@@ -11,12 +11,12 @@ import { useErrors } from "../../hooks/hook";
 import { fileFormat, transformImage } from "../../libs/Features";
 
 const columns = [
-  {
-    field: "id",
-    headerName: "ID",
-    headerClassName: "table-header",
-    width: 200,
-  },
+  // {
+  //   field: "id",
+  //   headerName: "ID",
+  //   headerClassName: "table-header",
+  //   width: 200,
+  // },
   {
     field: "attachments",
     headerName: "Attachments",
@@ -67,12 +67,12 @@ const columns = [
       </Stack>
     ),
   },
-  {
-    field: "chat",
-    headerName: "Chat",
-    headerClassName: "table-header",
-    width: 220,
-  },
+  // {
+  //   field: "chat",
+  //   headerName: "Chat",
+  //   headerClassName: "table-header",
+  //   width: 220,
+  // },
   {
     field: "groupChat",
     headerName: "Group Chat",
