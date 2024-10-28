@@ -441,6 +441,7 @@ const getMessages = TryCatch(async (req, res, next) => {
 
     return res.status(200).json({
         success: true,
+        chatName: chat.name,
         messages: messages.reverse(),
         totalPages,
     });
