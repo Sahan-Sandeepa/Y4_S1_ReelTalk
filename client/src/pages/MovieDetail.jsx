@@ -1,5 +1,6 @@
 import { useEffect, useState, Fragment } from 'react';
 import { Box, Typography, Grid, Button, Dialog, DialogContent, DialogTitle, MenuItem, Select, FormControl, InputLabel, Card, CardContent, CardMedia, Chip, Menu } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 import { DateRange, Language, Star, ThumbUp, Visibility, Add, ArrowDropDown, FamilyRestroom, Wc } from '@mui/icons-material';
 import Footer from '../assets/components/footer';
 import axios from 'axios';
@@ -9,6 +10,10 @@ const TMDB_API_KEY = '8f05a199269e9918674817c9425bf4dd';
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
 const MovieDetail = () => {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const paramValue = queryParams.get('param');
+    // const secondParam = queryParams.get('secondParam');
     const [genres, setGenres] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState('28');
     const [movies, setMovies] = useState([]);
@@ -62,7 +67,7 @@ const MovieDetail = () => {
 
     // Search for movie by title from session and fetch its trailer
     useEffect(() => {
-        const movieFromSession = getMovieDetailsFromSession();
+        const movieFromSession = getMovieDetailsFromSession(paramValue);
         if (movieFromSession && movieFromSession.Title) {
             const searchMovieByTitle = async () => {
                 try {
@@ -70,7 +75,7 @@ const MovieDetail = () => {
                     if (response.data.results.length > 0) {
                         const movie = response.data.results[0];
                         setSearchedMovie(movie);
-                        fetchTrailerForSearchedMovie(movie.id);  // Fetch trailer after getting the movie details
+                        fetchTrailerForSearchedMovie(movie.id);
                     } else {
                         setSearchedMovie(null);
                     }
@@ -123,7 +128,6 @@ const MovieDetail = () => {
                 {searchedMovie ? (
                     <Box marginBottom="2rem" sx={{ backgroundColor: '#333', color: '#f0f0f0', padding: '2rem', borderRadius: '0.5rem' }}>
                         <Grid container spacing={2} overflow={'hidden'}>
-                            {/* Movie Image */}
                             <Grid item xs={12} md={6}>
                                 <Typography variant="h4" marginBottom="1rem" marginLeft={'5rem'} color="#fff">
                                     {searchedMovie.title}
@@ -141,7 +145,6 @@ const MovieDetail = () => {
                                     }} />
                             </Grid>
 
-                            {/* Trailer */}
                             <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                                 <Grid container spacing={0.5} alignItems="center" sx={{ marginBottom: '1rem', marginLeft: '11rem' }}>
                                     <Grid item xs={6} display="flex" alignItems="center">
