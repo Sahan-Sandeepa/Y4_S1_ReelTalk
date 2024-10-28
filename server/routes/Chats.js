@@ -84,26 +84,31 @@ app.get("/getAcceptanceState/:receiverId", TryCatch(async (req, res, next) => {
 }));
 
 app.put("/updateChatDetails", TryCatch(async (req, res, next) => {
-    const { chatId, receiverId, URL } = req.body;
+    const { groupName, chatId, receiverId, URL } = req.body;
+    // Validate input fields
+    if (!groupName || !chatId || !receiverId || !URL) {
+        return next(new ErrorHandler("Please provide all required fields", 400));
+    }
 
-    const userRequest = await UserRequest.findOne({ receiverId });
+    // Validate receiverId format
+    if (!mongoose.Types.ObjectId.isValid(receiverId)) {
+        return next(new ErrorHandler("Invalid receiverId format", 400));
+    }
+    const validReceiverId = mongoose.Types.ObjectId(receiverId);
+    const userRequest = await UserRequest.findOne({ receiverId: validReceiverId, groupName });
 
     if (!userRequest) {
         return next(new ErrorHandler("Request not found", 404));
     }
-
-    // Find the chat with the same chatId
     const chatIndex = userRequest.chats.findIndex(chat => chat.chatId === chatId);
 
     if (chatIndex > -1) {
-        // Update the existing chat details
         userRequest.chats[chatIndex].URL = URL;
         userRequest.chats[chatIndex].isApproved = false;
     } else {
-        // Add a new chat record
-        userRequest.chats.push({ chatId, URL });
+        // Add a new chat record to chats array
+        userRequest.chats.push({ chatId, URL, isApproved: false });
     }
-
     await userRequest.save();
 
     res.status(200).json({ success: true, message: "Chat details updated", data: userRequest });
