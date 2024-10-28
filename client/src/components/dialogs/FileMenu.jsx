@@ -15,23 +15,17 @@ import { useSendAttachmentsMutation } from "../../redux/api/Api.js";
 
 const FileMenu = ({ anchorEl, chatId }) => {
   const { isFileMenu } = useSelector((state) => state.misc);
-
   const dispatch = useDispatch();
-
   const imageRef = useRef(null);
   const audioRef = useRef(null);
   const videoRef = useRef(null);
   const fileRef = useRef(null);
-
   const [sendAttachments] = useSendAttachmentsMutation();
-
   const closeFileMenu = () => dispatch(setIsFileMenu(false));
-
   const selectImage = () => imageRef.current?.click();
   const selectAudio = () => audioRef.current?.click();
   const selectVideo = () => videoRef.current?.click();
   const selectFile = () => fileRef.current?.click();
-
   const fileChangeHandler = async (e, key) => {
     const files = Array.from(e.target.files);
 
