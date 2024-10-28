@@ -12,6 +12,8 @@ const ChatList = ({
   newMessagesAlert = [],
   handleDeleteChat,
   onChatSelect,
+  selectedAction,
+  poster
 }) => {
 
   return (
@@ -60,6 +62,8 @@ const ChatList = ({
             sameSender={chatId === _id}
             handleDeleteChat={handleDeleteChat}
             onChatSelect={onChatSelect}
+            selectedAction={selectedAction}
+            poster={poster}
           />
         );
       })}
@@ -80,6 +84,8 @@ ChatList.propTypes = {
   ).isRequired,
   chatId: PropTypes.string.isRequired,
   onChatSelect: PropTypes.string.isRequired,
+  selectedAction: PropTypes.string,
+  poster: PropTypes.string,
   onlineUsers: PropTypes.arrayOf(PropTypes.string),
   newMessagesAlert: PropTypes.arrayOf(
     PropTypes.shape({

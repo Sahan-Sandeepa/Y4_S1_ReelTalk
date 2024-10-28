@@ -178,30 +178,32 @@ const Landing = () => {
           onClose={handleClose}
           PaperProps={{ style: menuStyle }}
         >
-          <MenuItem
-            onClick={() => { handleShareOrRequestClick(); } }
-            style={menuItemStyle}
-            className="thq-link thq-body-small"
-          >
-            <ReplyIcon style={iconStyle} />
-            Share
-          </MenuItem>
-          <MenuItem
-            onClick={() => { handleShareOrRequestClick(); } }
-            style={menuItemStyle}
-          >
-            <RecommendIcon style={iconStyle} />
-            Recommend
-          </MenuItem>
-          {user.age < 18 ? (
-            <MenuItem
-              onClick={() => { handleShareOrRequestClick(); } }
-              style={menuItemStyle}
-            >
-              <PlayCircleOutlineIcon style={iconStyle} />
-              Request
-            </MenuItem>
-          ) : null}
+          {user?.age >= 18 && (
+            <>
+              <MenuItem
+                onClick={() => { handleShareOrRequestClick(); }}
+                style={menuItemStyle}
+                className="thq-link thq-body-small"
+              >
+                <ReplyIcon style={iconStyle} />
+                Share
+              </MenuItem>
+              <MenuItem
+                onClick={() => { handleShareOrRequestClick(); }}
+                style={menuItemStyle}
+              >
+                <RecommendIcon style={iconStyle} />
+                Recommend
+              </MenuItem>
+              <MenuItem
+                onClick={() => { handleShareOrRequestClick(); }}
+                style={menuItemStyle}
+              >
+                <PlayCircleOutlineIcon style={iconStyle} />
+                Request
+              </MenuItem>
+            </>
+          )}
         </Menu>
       </div>
       {showBottomAppBar && <BottomAppBar />}

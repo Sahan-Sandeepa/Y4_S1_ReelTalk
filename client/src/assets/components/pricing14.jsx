@@ -34,7 +34,7 @@ const Pricing14 = (props) => {
                 <Fragment>
                   <p className="pricing14-text202 thq-body-large">
                     <span>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      First 3 Months Free for all new users who sign up for the Yearly Premium or Family Plan. 10% Off on the first 6 months for users who subscribe to the Monthly Premium Plan during the launch period.
                       <span
                         dangerouslySetInnerHTML={{
                           __html: ' ',
@@ -106,7 +106,7 @@ const Pricing14 = (props) => {
                     {props.plan1Price ?? (
                       <Fragment>
                         <h3 className="pricing14-text206 thq-heading-3">
-                          $2.00/month
+                         LKR 500/month
                         </h3>
                       </Fragment>
                     )}
@@ -115,7 +115,7 @@ const Pricing14 = (props) => {
                     {props.plan1Yearly ?? (
                       <Fragment>
                         <p className="pricing14-text199 thq-body-large">
-                          or $200 yearly
+                          or LKR 5,000 (Save LKR 1,000) yearly
                         </p>
                       </Fragment>
                     )}
@@ -185,7 +185,7 @@ const Pricing14 = (props) => {
                     {props.plan2 ?? (
                       <Fragment>
                         <p className="pricing14-text174 thq-body-large">
-                          Business plan
+                          Premium Plan
                         </p>
                       </Fragment>
                     )}
@@ -194,7 +194,7 @@ const Pricing14 = (props) => {
                     {props.plan2Price ?? (
                       <Fragment>
                         <h3 className="pricing14-text188 thq-heading-3">
-                          $9.00/month
+                          LKR 1,200/month
                         </h3>
                       </Fragment>
                     )}
@@ -203,7 +203,7 @@ const Pricing14 = (props) => {
                     {props.plan2Yearly ?? (
                       <Fragment>
                         <p className="pricing14-text168 thq-body-large">
-                          or $299 yearly
+                          or LKR 12,000 (Save LKR 2,400) yearly
                         </p>
                       </Fragment>
                     )}
@@ -287,7 +287,7 @@ const Pricing14 = (props) => {
                     {props.plan3 ?? (
                       <Fragment>
                         <p className="pricing14-text207 thq-body-large">
-                          Enterprise plan
+                          Family Plan
                         </p>
                       </Fragment>
                     )}
@@ -296,7 +296,7 @@ const Pricing14 = (props) => {
                     {props.plan3Price ?? (
                       <Fragment>
                         <h3 className="pricing14-text155 thq-heading-3">
-                          $14.00/month
+                          LKR 2,000/month
                         </h3>
                       </Fragment>
                     )}
@@ -305,7 +305,7 @@ const Pricing14 = (props) => {
                     {props.plan3Yearly ?? (
                       <Fragment>
                         <p className="pricing14-text194 thq-body-large">
-                          or $499 yearly
+                          or LKR 20,000 (Save LKR 4,000) yearly
                         </p>
                       </Fragment>
                     )}
@@ -373,13 +373,13 @@ const Pricing14 = (props) => {
                       <path d="M384 690l452-452 60 60-512 512-238-238 60-60z"></path>
                     </svg>
                     <span>
-                      {props.plan3Feature5 ?? (
+                     
                         <Fragment>
                           <span className="pricing14-text186 thq-body-small">
                             Feature text goes here
                           </span>
                         </Fragment>
-                      )}
+                     
                     </span>
                   </div>
                 </div>

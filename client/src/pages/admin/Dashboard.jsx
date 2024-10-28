@@ -27,14 +27,16 @@ import {
 import { matBlack } from "../../constants/Color";
 import { server } from "../../constants/config";
 import { useErrors } from "../../hooks/hook";
+import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const Dashboard = () => {
   const { loading, data, error } = useFetchData(
     `${server}/api/v1/admin/stats`,
     "dashboard-stats"
   );
-
   const { stats } = data || {};
+  const navigate = useNavigate();
 
   useErrors([
     {
@@ -49,10 +51,12 @@ const Dashboard = () => {
       sx={{ padding: "2rem", margin: "2rem 0", borderRadius: "1rem" }}
     >
       <Stack direction={"row"} alignItems={"center"} spacing={"1rem"}>
+        <ArrowBackIcon
+          sx={{ fontSize: "2rem", cursor: "pointer" }}
+          onClick={() => navigate('/landing')}
+        />
         <AdminPanelSettingsIcon sx={{ fontSize: "3rem" }} />
-
         <SearchField placeholder="Search..." />
-
         <CurveButton>Search</CurveButton>
         <Box flexGrow={1} />
         <Typography
@@ -153,7 +157,6 @@ const Dashboard = () => {
                   stats?.groupsCount || 0,
                 ]}
               />
-
               <Stack
                 position={"absolute"}
                 direction={"row"}
@@ -168,7 +171,6 @@ const Dashboard = () => {
               </Stack>
             </Paper>
           </Stack>
-
           {Widgets}
         </Container>
       )}

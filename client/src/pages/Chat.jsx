@@ -82,6 +82,7 @@ const Chat = ({ chatId, user }) => {
   ];
 
   const members = chatDetails?.data?.chat?.members;
+  const chatName = chatDetails?.data?.chat?.name;
 
   const handleFileOpen = (e) => {
     dispatch(setIsFileMenu(true));
@@ -171,7 +172,7 @@ const Chat = ({ chatId, user }) => {
       const result = await response.json();
 
       if (result.prediction === 1) {
-        return 'Your message contains inappropriate content.';
+        return 'Your message contains inappropriate content. That could be negative if there are children in this chat.';
       }
       return null;
     } catch (error) {
@@ -261,7 +262,7 @@ const Chat = ({ chatId, user }) => {
         }}
       >
         {allMessages.map((i) => (
-          <MessageComponent key={i._id} message={i} user={user} />
+          <MessageComponent key={i._id} message={i} user={user} chatName={chatName} />
         ))}
 
         {userTyping && <TypingLoader />}

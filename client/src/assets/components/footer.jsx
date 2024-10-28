@@ -202,7 +202,7 @@ Footer.defaultProps = {
   link5: 'Blog',
   link8: 'Cookies Policy',
   action1: 'Subscribe to Newsletter',
-  content3: '© 2024 ReelTalk. All Rights Reserved.',
+  content3: '© 2024 FamilyFrame. All Rights Reserved.',
   link4: 'Support',
   logoSrc: 'https://presentation-website-assets.teleporthq.io/logos/logo.png',
   cookiesLink: 'Cookies Settings',

@@ -58,14 +58,12 @@ Table.propTypes = {
   rows: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-      // Add other row fields as needed
     })
   ).isRequired,
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       field: PropTypes.string.isRequired,
       headerName: PropTypes.string,
-      // Add other column fields as needed
     })
   ).isRequired,
   heading: PropTypes.string.isRequired,

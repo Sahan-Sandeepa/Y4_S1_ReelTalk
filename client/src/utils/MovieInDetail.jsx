@@ -2,10 +2,10 @@ export const getStoredMovies = () => {
     return JSON.parse(localStorage.getItem('movies') || '[]');
 };
 
-export const getMovieDetailsFromSession = () => {
-    const chatAttachmentResponse = JSON.parse(sessionStorage.getItem('chatAttachmentResponse'));
+export const getMovieDetailsFromSession = (posterUrl) => {
+    // const chatAttachmentResponse = JSON.parse(sessionStorage.getItem('chatAttachmentResponse'));
 
-    if (!chatAttachmentResponse) {
+    if (!posterUrl) {
         console.log('No chatAttachmentResponse found in session storage');
         return getSampleMovie();
     }
@@ -14,7 +14,7 @@ export const getMovieDetailsFromSession = () => {
 
     for (const movieList of storedMovies) {
         for (const movie of movieList) {
-            if (movie.Poster === chatAttachmentResponse) {
+            if (movie.Poster === posterUrl) {
                 return movie;
             }
         }

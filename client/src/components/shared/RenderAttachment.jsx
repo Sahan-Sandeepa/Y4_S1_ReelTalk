@@ -4,13 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { transformImage } from "../../libs/Features";
 import { FileOpen as FileOpenIcon } from "@mui/icons-material";
 
-const RenderAttachment = (file, url) => {
-
+// eslint-disable-next-line no-unused-vars
+const RenderAttachment = (file, url, link, isApproved, age) => {
   const navigate = useNavigate();
-
   const handleClick = (e) => {
     e.preventDefault();
-    navigate('/movie-detail', { state: { url } });
+    navigate(`/movie-detail?param=${link}`);
   }
 
   switch (file) {

@@ -1,7 +1,7 @@
 import {
   Close as CloseIcon,
   Dashboard as DashboardIcon,
-  ExitToApp as ExitToAppIcon,
+  // ExitToApp as ExitToAppIcon,
   Groups as GroupsIcon,
   ManageAccounts as ManageAccountsIcon,
   Menu as MenuIcon,
@@ -21,8 +21,8 @@ import React, { useState } from "react";
 import { Link as LinkComponent, Navigate, useLocation } from "react-router-dom";
 import { grayColor, matBlack } from "../../constants/Color";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { adminLogout } from "../../redux/thunks/admin";
+import { useSelector } from "react-redux";
+// import { adminLogout } from "../../redux/thunks/admin";
 
 const Link = styled(LinkComponent)`
   text-decoration: none;
@@ -59,11 +59,11 @@ const adminTabs = [
 
 const Sidebar = ({ w = "100%" }) => {
   const location = useLocation();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const logoutHandler = () => {
-    dispatch(adminLogout());
-  };
+  // const logoutHandler = () => {
+  //   dispatch(adminLogout());
+  // };
 
   return (
     <Stack width={w} direction={"column"} p={"3rem"} spacing={"3rem"}>
@@ -82,19 +82,18 @@ const Sidebar = ({ w = "100%" }) => {
           >
             <Stack direction={"row"} alignItems={"center"} spacing={"1rem"}>
               {tab.icon}
-
               <Typography>{tab.name}</Typography>
             </Stack>
           </Link>
         ))}
 
-        <Link onClick={logoutHandler}>
+        {/* <Link onClick={logoutHandler}>
           <Stack direction={"row"} alignItems={"center"} spacing={"1rem"}>
             <ExitToAppIcon />
 
             <Typography>Logout</Typography>
           </Stack>
-        </Link>
+        </Link> */}
       </Stack>
     </Stack>
   );
@@ -106,11 +105,8 @@ Sidebar.propTypes = {
 
 const AdminLayout = ({ children }) => {
   const { isAdmin } = useSelector((state) => state.auth);
-
   const [isMobile, setIsMobile] = useState(false);
-
   const handleMobile = () => setIsMobile(!isMobile);
-
   const handleClose = () => setIsMobile(false);
 
   if (!isAdmin) return <Navigate to="/admin" />;
@@ -129,11 +125,9 @@ const AdminLayout = ({ children }) => {
           {isMobile ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
       </Box>
-
       <Grid item md={4} lg={3} sx={{ display: { xs: "none", md: "block" } }}>
         <Sidebar />
       </Grid>
-
       <Grid
         item
         xs={12}
@@ -145,7 +139,6 @@ const AdminLayout = ({ children }) => {
       >
         {children}
       </Grid>
-
       <Drawer open={isMobile} onClose={handleClose}>
         <Sidebar w="50vw" />
       </Drawer>

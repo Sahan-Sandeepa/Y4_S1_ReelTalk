@@ -17,6 +17,8 @@ const ChatItem = ({
   index = 0,
   handleDeleteChat,
   onChatSelect,
+  selectedAction,
+  poster
 }) => {
   return (
     <Link
@@ -24,7 +26,7 @@ const ChatItem = ({
         padding: "0",
         textDecoration: 'none',
       }}
-      to={`/chat/${_id}`}
+      to={`/chat/${_id}?param=${selectedAction}&secondParam=${poster}`}
       onContextMenu={(e) => handleDeleteChat(e, _id, groupChat)}
       onClick={() => onChatSelect(_id)}
     >
@@ -99,6 +101,8 @@ ChatItem.propTypes = {
   onChatSelect: PropTypes.string.isRequired,
   groupChat: PropTypes.bool,
   sameSender: PropTypes.bool,
+  selectedAction: PropTypes.string,
+  poster: PropTypes.string,
   isOnline: PropTypes.bool,
   newMessageAlert: PropTypes.shape({
     count: PropTypes.number

@@ -9,7 +9,6 @@ import { adminSecretKey } from "../app.js";
 
 const adminLogin = TryCatch(async (req, res, next) => {
     const { secretKey } = req.body;
-
     const isMatched = secretKey === adminSecretKey;
 
     if (!isMatched) return next(new ErrorHandler("Invalid Admin Key", 401));
@@ -24,7 +23,7 @@ const adminLogin = TryCatch(async (req, res, next) => {
         })
         .json({
             success: true,
-            message: "Authenticated Successfully, Welcome BOSS",
+            // message: "Authenticated Successfully, Welcome to the admin dashboard",
         });
 });
 
@@ -49,7 +48,6 @@ const getAdminData = TryCatch(async (req, res, next) => {
 
 const allUsers = TryCatch(async (req, res) => {
     const users = await User.find({});
-
     const transformedUsers = await Promise.all(
         users.map(async ({ name, username, avatar, _id }) => {
             const [groups, friends] = await Promise.all([

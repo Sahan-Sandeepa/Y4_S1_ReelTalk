@@ -1,7 +1,5 @@
 import { useState } from 'react'
-
 import PropTypes from 'prop-types'
-
 import './pricing.css'
 
 const Pricing = (props) => {
@@ -360,58 +358,67 @@ const Pricing = (props) => {
 }
 
 Pricing.defaultProps = {
-  plan3Price: '$14.00/month',
   plan3Action: 'Subscribe Now',
-  plan11: 'Basic plan',
+  plan11: 'Premium Plan',
+  plan31: 'Enterprise Plan',
+
+  // Basic Plan Features
+  plan1: 'Basic Plan',
+  plan1Price: 'LKR 500/month',
+  plan1Price1: 'LKR 5,000/year',
+  plan1Yearly: 'or LKR 5,000/year (Save LKR 1,000)',
+  plan1Yearly1: 'or LKR 500/month',
   plan1Action: 'Subscribe Now',
-  plan31: 'Enterprise plan',
-  plan3Feature41: 'Feature text goes here',
-  plan1Feature2: 'Family messaging feature',
-  plan2Feature11: 'Feature text goes here',
-  plan3Feature51: 'Feature text goes here',
-  plan2Feature41: 'Feature text goes here',
-  plan2Feature2: 'HD streaming quality',
-  plan3Feature21: 'Feature text goes here',
-  plan2Feature4: 'Feature text goes here',
-  plan2Yearly: 'or $299 yearly',
   plan1Action1: 'Get started',
+  plan1Feature1: 'Access to standard movie catalog',
+  plan1Feature2: 'Basic family discussion platform',
+  plan1Feature3: 'Personalized recommendations (limited to 5 movies per week)',
+  plan1Feature11: 'No ads',
+  plan1Feature21: 'Watch on up to 2 devices simultaneously',
+  plan1Feature31: 'Standard definition streaming quality',
+
+  // Business Plan Features
+  plan2: 'Business Plan',
+  plan21: 'Business Plan',
+  plan2Price: 'LKR 1,200/month',
+  plan2Price1: 'LKR 12,000/year',
+  plan2Yearly: 'or LKR 12,000/year (Save LKR 2,400)',
+  plan2Yearly1: 'or LKR 1,200/month',
   plan2Action: 'Subscribe Now',
-  plan3Feature1: 'All features in Plan 2',
-  plan2Feature3: 'Offline downloads',
-  plan1Price1: '$90/yr',
-  plan2: 'Business plan',
-  plan2Feature21: 'Feature text goes here',
   plan2Action1: 'Get started',
-  plan3Feature2: '4K streaming quality',
-  content1: 'Choose the perfect plan for you',
-  plan2Feature1: 'All features in Plan 1',
-  heading1: 'Pricing plan',
-  plan3Feature31: 'Feature text goes here',
-  plan1: 'Basic plan',
-  plan21: 'Business plan',
-  plan1Feature11: 'Feature text goes here',
-  plan1Feature21: 'Feature text goes here',
-  plan3Feature5: 'Feature text goes here',
-  plan2Yearly1: 'or $29 monthly',
-  plan2Price: '$9.00/month',
-  plan3Yearly1: 'or $49 monthly',
-  plan2Feature31: 'Feature text goes here',
-  plan3Feature11: 'Feature text goes here',
-  plan1Yearly1: 'or $20 monthly',
-  plan2Price1: '$120/yr',
-  plan3Yearly: 'or $499 yearly',
-  plan3Feature4: 'Feature text goes here',
-  plan3Price1: '$150/yr',
-  plan1Feature31: 'Feature text goes here',
-  plan1Feature3: 'Feature text goes here',
-  plan1Yearly: 'or $200 yearly',
-  plan1Feature1: 'Access to movie library',
-  plan3Feature3: 'Unlimited devices',
-  content2: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+  plan2Feature1: 'All features in Basic Plan',
+  plan2Feature2: 'HD streaming quality',
+  plan2Feature3: 'Offline downloads',
+  plan2Feature4: 'UI/UX localization options based on user feedback',
+  plan2Feature11: 'Family viewing profile',
+  plan2Feature21: 'Watch on up to 4 devices simultaneously',
+  plan2Feature31: 'Early access to new releases',
+  plan2Feature41: 'Priority support',
+
+  // Enterprise Plan Features
+  plan3: 'Family Plan',
+  plan3Price: 'LKR 2,000/month',
+  plan3Price1: 'LKR 20,000/year',
+  plan3Yearly: 'or LKR 20,000/year (Save LKR 4,000)',
+  plan3Yearly1: 'or LKR 2,000/month',
   plan3Action1: 'Get started',
-  plan1Price: '$2.00/month',
-  plan3: 'Enterprise plan',
+  plan3Feature1: 'All features in Business Plan',
+  plan3Feature2: '4K streaming quality',
+  plan3Feature3: 'Unlimited devices',
+  plan3Feature4: 'Family chat and parental control monitoring',
+  plan3Feature5: 'Exclusive access to family-oriented movie catalog and filters',
+  plan3Feature11: 'Priority customer support',
+  plan3Feature21: 'Personalized recommendations with advanced sentiment analysis',
+  plan3Feature31: 'Custom parental control settings',
+  plan3Feature41: 'Language filtering and age-based content restrictions',
+  plan3Feature51: 'Download for offline viewing on unlimited devices',
+
+  // Additional content and heading
+  content1: 'Choose the perfect plan for you',
+  heading1: 'Pricing Plan',
+  content2: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 }
+
 
 Pricing.propTypes = {
   plan3Price: PropTypes.string,

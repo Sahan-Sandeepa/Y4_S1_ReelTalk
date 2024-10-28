@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
-
+import { useState } from 'react'
 import PropTypes from 'prop-types'
-
 import './features2.css'
 
 const Features2 = (props) => {
@@ -83,23 +81,23 @@ const Features2 = (props) => {
 
 Features2.defaultProps = {
   feature3Description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.',
-  feature1ImgAlt: 'feature 1',
+    'An interface that adapts to local preferences, with feedback mechanisms to continuously improve the UI/UX based on cultural nuances.  By integrating feedback loops, this feature ensures the platform remains intuitive and relevant to the Sri Lankan audience.',
+  feature1ImgAlt: 'Personalized Movie Recommendation System',
   feature1Description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.',
+    'This feature provides tailored movie recommendations based on user preferences, viewing behavior, and sentiment analysis. By leveraging neural networks and sentiment scores, it helps users find movies that match their tastes and values, ensuring culturally relevant suggestions.',
   feature3ImgAlt: 'image',
   feature2Title: 'Family Messaging Feature',
-  feature1Title: 'Feature #1',
+  feature1Title: 'Personalized Movie Recommendation System',
   feature1ImgSrc:
     'https://images.unsplash.com/photo-1533499966477-9333968a4e28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTcyNDMxMTY5NHw&ixlib=rb-4.0.3&q=80&w=1080',
   feature3ImgSrc:
-    'https://images.unsplash.com/photo-1559734840-f9509ee5677f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTcyNDMxMTY5NXw&ixlib=rb-4.0.3&q=80&w=1080',
+    'https://images.unsplash.com/photo-1533499966477-9333968a4e28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTcyNDMxMTY5Nnw&ixlib=rb-4.0.3&q=80&w=1080',
   feature2Description:
     'Stay connected with your family members through our built-in messaging feature. Share thoughts, recommendations, and reactions to movies in real-time.',
-  feature3Title: 'Feature #3',
+  feature3Title: ' UI/UX Localization & Feedback',
   feature2ImgAlt: 'Family Messaging Feature Image',
   feature2ImgSrc:
-    'https://images.unsplash.com/photo-1533499966477-9333968a4e28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTcyNDMxMTY5Nnw&ixlib=rb-4.0.3&q=80&w=1080',
+    'https://images.unsplash.com/photo-1559734840-f9509ee5677f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTcyNDMxMTY5NXw&ixlib=rb-4.0.3&q=80&w=1080',
 }
 
 Features2.propTypes = {

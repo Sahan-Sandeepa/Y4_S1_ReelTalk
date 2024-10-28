@@ -8,8 +8,9 @@ import {
 } from "../constants/Events";
 import { useErrors, useSocketEvents } from "../hooks/hook";
 import { useSocket } from "../socket";
-import { Skeleton } from "@mui/material";
+import { Skeleton, Box } from "@mui/material";
 import Typography from '@mui/material/Typography';
+import { ArrowBack } from "@mui/icons-material";
 import Paper from '@mui/material/Paper';
 import { useMyChatsQuery } from '../redux/api/Api';
 import List from '@mui/material/List';
@@ -109,9 +110,12 @@ const BottomAppBar = ({ selectedAction, movie }) => {
           },
         }}
       >
-        <Typography variant="h5" gutterBottom component="div" sx={{ p: 2, pb: 0, display: 'flex', justifyContent: 'center' }}>
-          All chats
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', padding: 1 }}>
+          <ArrowBack sx={{ cursor: 'pointer', fontSize: 28 }} onClick={refetchListener} />
+          <Typography variant="h5" sx={{ flexGrow: 1, textAlign: 'center' }}>
+            All chats
+          </Typography>
+        </Box>
         <List sx={{ mb: 2 }}>
           {isLoading ? (
             <Skeleton />
@@ -122,6 +126,8 @@ const BottomAppBar = ({ selectedAction, movie }) => {
               chatId={chatId}
               onChatSelect={sendMoviePosterToChat}
               onlineUsers={onlineUsers}
+              selectedAction={selectedAction}
+              poster={movie.Poster}
             />
           )}
         </List>

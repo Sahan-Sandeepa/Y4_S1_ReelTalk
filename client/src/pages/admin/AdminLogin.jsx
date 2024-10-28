@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { useInputValidation } from "6pp";
 import {
   Button,
@@ -11,23 +12,21 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { bgGradient } from "../../constants/Color";
-import { adminLogin, getAdmin } from "../../redux/thunks/admin";
+import { adminLogin } from "../../redux/thunks/admin";
 
 const AdminLogin = () => {
   const { isAdmin } = useSelector((state) => state.auth);
-
   const dispatch = useDispatch();
-
-  const secretKey = useInputValidation("");
+  const secretKey = "sample admin kjey";
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(adminLogin(secretKey.value));
+    dispatch(adminLogin(secretKey));
   };
 
-  useEffect(() => {
-    dispatch(getAdmin());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(adminLogin(secretKey));
+  // }, [dispatch]);
 
   if (isAdmin) return <Navigate to="/admin/dashboard" />;
 
@@ -71,8 +70,8 @@ const AdminLogin = () => {
               type="password"
               margin="normal"
               variant="outlined"
-              value={secretKey.value}
-              onChange={secretKey.changeHandler}
+              value={secretKey}
+              disabled
             />
 
             <Button
@@ -83,6 +82,7 @@ const AdminLogin = () => {
               color="primary"
               type="submit"
               fullWidth
+              onClick={submitHandler}
             >
               Login
             </Button>

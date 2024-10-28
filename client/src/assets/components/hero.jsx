@@ -1,9 +1,10 @@
 import Script from 'dangerous-html/react'
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types'
-
 import './hero.css'
 
 const Hero = (props) => {
+  const navigate = useNavigate();
   return (
     <div className="hero-header78">
       <div className="hero-column thq-section-padding thq-section-max-width">
@@ -12,7 +13,7 @@ const Hero = (props) => {
           <p className="hero-text2 thq-body-large">{props.content1}</p>
         </div>
         <div className="hero-actions">
-          <button className="thq-button-filled hero-button1">
+          <button className="thq-button-filled hero-button1" onClick={() => navigate('/login')}>
             <span className="thq-body-small">{props.action1}</span>
           </button>
           <button className="thq-button-outline hero-button2">
@@ -218,7 +219,7 @@ Hero.defaultProps = {
     'https://images.unsplash.com/photo-1528425646626-fcc5dd57daf5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTMyMXwwfDF8cmFuZG9tfHx8fHx8fHx8MTcyNDMxMTY5OXw&ixlib=rb-4.0.3&q=80&w=1080',
   image10Alt: 'Family Bonding',
   image4Alt: 'Connect with Family',
-  heading1: 'Welcome to our Family Movie App!',
+  heading1: 'Welcome to your Family Movie App!',
   content1:
     'Enjoy quality family time with our movie application that includes a special messaging feature for your family members to stay connected.',
   image10Src:

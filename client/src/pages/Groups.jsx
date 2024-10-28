@@ -157,8 +157,6 @@ useEffect(() => {
     };
   }, [chatId]);
 
-  
-
   const IconBtns = (
     <>
       <Box

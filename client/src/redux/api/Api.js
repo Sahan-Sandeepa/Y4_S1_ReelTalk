@@ -181,6 +181,70 @@ const api = createApi({
             },
             providesTags: ["Chat"],
         }),
+
+        createRequest: builder.mutation({
+            query: (data) => ({
+                url: "user/createRequest",
+                method: "POST",
+                credentials: "include",
+                body: data,
+            }),
+            invalidatesTags: ["User"],
+        }),
+
+        updateReceiverDetails: builder.mutation({
+            query: (data) => ({
+                url: "user/updateReceiverDetails",
+                method: "PUT",
+                credentials: "include",
+                body: data,
+            }),
+            invalidatesTags: ["User"],
+        }),
+
+        getAcceptanceState: builder.query({
+            query: (receiverId) => ({
+                url: `chat/getAcceptanceState/${receiverId}`,
+                credentials: "include",
+            }),
+            providesTags: ["User"],
+        }),
+
+        updateChatDetails: builder.mutation({
+            query: (data) => ({
+                url: "chat/updateChatDetails",
+                method: "PUT",
+                credentials: "include",
+                body: data,
+            }),
+            invalidatesTags: ["Chat"],
+        }),
+
+        setApproval: builder.mutation({
+            query: (data) => ({
+                url: "chat/setApproval",
+                method: "PUT",
+                credentials: "include",
+                body: data,
+            }),
+            invalidatesTags: ["Chat"],
+        }),
+
+        getChatDetails: builder.query({
+            query: ({ receiverId, chatId }) => ({
+                url: `chat/getChatDetails/${receiverId}/${chatId}`,
+                credentials: "include",
+            }),
+            providesTags: ["Chat"],
+        }),
+
+        getApprovalStatus: builder.query({
+            query: ({ receiverId, chatId }) => ({
+                url: `chat/getApprovalStatus/${receiverId}/${chatId}`,
+                credentials: "include",
+            }),
+            providesTags: ["Chat"],
+        }),
     }),
 });
 
@@ -204,4 +268,11 @@ export const {
     useLeaveGroupMutation,
     useGetUsersCreatedByMeQuery,
     useFetchPosterQuery,
+    useCreateRequestMutation,
+    useUpdateReceiverDetailsMutation,
+    useGetAcceptanceStateQuery,
+    useUpdateChatDetailsMutation,
+    useSetApprovalMutation,
+    useGetChatDetailsQuery,
+    useGetApprovalStatusQuery,
 } = api;

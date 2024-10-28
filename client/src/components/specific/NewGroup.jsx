@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   useGetUsersCreatedByMeQuery,
   useNewGroupMutation,
+  useCreateRequestMutation,
 } from "../../redux/api/Api.js";
 import GroupsIcon from '@mui/icons-material/Groups';
 import { useAsyncMutation, useErrors } from "../../hooks/hook.jsx";
@@ -30,7 +31,9 @@ const NewGroup = () => {
   const [newGroup, { isLoading: isLoadingNewGroup }] = useAsyncMutation(useNewGroupMutation);
   const groupName = useInputValidation("");
   const [selectedMembers, setSelectedMembers] = useState([]);
+  const { user } = useSelector((state) => state.auth);
   const [isUserDetailsFormOpen, setIsUserDetailsFormOpen] = useState(false);
+  const [createRequest] = useCreateRequestMutation();
   const { data: createdUsers, isLoading: usersLoading, error: usersError, refetch } = useGetUsersCreatedByMeQuery(loggedInUserId);
   const errors = [{ usersLoading, usersError }];
   useErrors(errors);
@@ -56,10 +59,22 @@ const NewGroup = () => {
     if (selectedMembers.length < 3)
       return toast.error("Please select at least 3 members");
 
+    // First, create the group
     newGroup("Creating group...", { name: groupName.value, members: selectedMembers })
       .then(() => {
-        toast.success("Group created successfully");
-        closeHandler();
+        const createRequestPromises = selectedMembers.map((receiverId) =>
+          createRequest({
+            parentUserId: user._id,
+            groupName: groupName.value,
+            receiverId: receiverId,
+          })
+        );
+        Promise.all(createRequestPromises)
+          .then(() => {
+            toast.success("Group and requests created successfully");
+            closeHandler();
+          })
+          .catch(() => toast.error("Failed to create requests for some users"));
       })
       .catch(() => toast.error("Failed to create group"));
   };

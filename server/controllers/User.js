@@ -16,13 +16,9 @@ import { ErrorHandler } from "../utils/Utility.js";
 // Create a new user and save it to the database and save token in cookie
 const newUser = TryCatch(async (req, res, next) => {
     const { name, username, password, bio, age, createdBy } = req.body;
-
     const file = req.file;
-
     if (!file) return next(new ErrorHandler("Please Upload Avatar"));
-
     const result = await uploadFilesToCloudinary([file]);
-
     const avatar = {
         public_id: result[0].public_id,
         url: result[0].url,
@@ -188,18 +184,22 @@ const acceptFriendRequest = TryCatch(async (req, res, next) => {
 });
 
 const getMyNotifications = TryCatch(async (req, res) => {
-    const requests = await Request.find({ receiver: req.user }).populate(
-        "sender",
-        "name avatar"
-    );
+    const requests = await Request.find({ receiver: req.user })
+        .populate('sender', 'name avatar')
+        .populate({
+            path: 'groupId',
+            select: 'name',
+        });
 
-    const allRequests = requests.map(({ _id, sender }) => ({
+    const allRequests = requests.map(({ _id, sender, receiver, groupId }) => ({
         _id,
         sender: {
             _id: sender._id,
             name: sender.name,
             avatar: sender.avatar.url,
+            receiver: receiver,
         },
+        groupName: groupId ? groupId.name : null,
     }));
 
     return res.status(200).json({
