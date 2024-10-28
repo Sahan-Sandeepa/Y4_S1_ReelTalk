@@ -3,45 +3,35 @@ import ThumbDownAltTwoToneIcon from '@mui/icons-material/ThumbDownAltTwoTone';
 import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
 import DoneAllTwoToneIcon from '@mui/icons-material/DoneAllTwoTone';
 import { memo } from "react";
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { lightBlue } from "../../constants/Color";
+// import { useUpdateChatDetailsMutation } from "../../redux/api/Api";
 import moment from "moment";
 import { fileFormat } from "../../libs/Features";
 import RenderAttachment from "./RenderAttachment";
 import { motion } from "framer-motion";
 
-const MessageComponent = ({ message, user }) => {
-  console.log(' -----------------------------');
-  console.log('MessageComponent  user:', user.age);
-  console.log(' -----------------------------');
-
-  const { sender, content, attachments = [], createdAt } = message;
-  console.log(' -----------------------------------');
-  console.log('MessageComponent  content:', content);
-  console.log(' -----------------------------------');
-
-  console.log(' -------------------------------------------');
-  console.log('MessageComponent  attachments:', attachments);
-  console.log(' -------------------------------------------');
-
-  console.log(' ---------------------------------');
-  console.log('MessageComponent  sender:', sender);
-  console.log(' ---------------------------------');
-
+// eslint-disable-next-line react/prop-types
+const MessageComponent = ({ message, user, chatName }) => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const paramValue = queryParams.get('param');
+  const secondParam = queryParams.get('secondParam');
+  const { sender, content, attachments = [], createdAt, chat } = message;
   const sameSender = sender?._id === user?._id;
   const timeAgo = moment(createdAt).fromNow();
+  // const [updateChatDetails] = useUpdateChatDetailsMutation();
   const avatarUrl = user.avatar?.url;
   const firstLetter = user.name[0]?.toUpperCase();
   const isApproved = false
 
   const handleApprove = (attachment) => {
     console.log("Approved", attachment);
-    // Add further logic here
   };
 
   const handleReject = (attachment) => {
     console.log("Rejected", attachment);
-    // Add further logic here
   };
 
 
@@ -91,12 +81,10 @@ const MessageComponent = ({ message, user }) => {
             {content}
           </Typography>
         )}
-
         {attachments.length > 0 &&
           attachments.map((attachment, index) => {
-            const url = attachment.url;
+            const url = attachment.url;            
             const file = fileFormat(url);
-
             return (
               <Box key={index}>
                 <a
@@ -108,12 +96,10 @@ const MessageComponent = ({ message, user }) => {
                   }}
                   onClick={(e) => e.preventDefault()}
                 >
-                  {RenderAttachment(file, url, isApproved, user.age)}
+                  {RenderAttachment(file, url, secondParam, isApproved, user.age)}
                 </a>
-
-                {((file === "image" || file === "video") && user.age >= 18) && (
-                  <Box display="flex" flexDirection="column" marginTop="0.5rem" sx={{ width: "100%" }}>
-                    {/* Approve Section */}
+                {((file === "image" || file === "video") && user.age >= 18 && paramValue === "Request") && (
+                  <Box display="flex" flexDirection="column" marginTop="0.5rem" sx={{ width: "100%", marginLeft: "1rem" }}>
                     <Button
                       sx={{
                         display: "flex",
@@ -130,12 +116,10 @@ const MessageComponent = ({ message, user }) => {
                       <Typography variant="body2" sx={{ color: "#55cc00", fontSize: "0.8rem" }}>
                         Approve
                       </Typography>
-                      <IconButton color="success" onClick={() => handleApprove('Hi')}>
+                      <IconButton color="success" onClick={() => handleApprove('Approve')}>
                         <CheckCircleTwoToneIcon fontSize="small" sx={{ color: "#55cc00" }} />
                       </IconButton>
                     </Button>
-
-                    {/* Reject Section */}
                     <Button
                       sx={{
                         display: "flex",
@@ -151,7 +135,7 @@ const MessageComponent = ({ message, user }) => {
                       <Typography variant="body2" sx={{ color: "red", fontSize: "0.8rem" }}>
                         Reject
                       </Typography>
-                      <IconButton color="error" onClick={() => handleReject('Bye')}>
+                      <IconButton color="error" onClick={() => handleReject('Reject')}>
                         <ThumbDownAltTwoToneIcon fontSize="small" sx={{ color: "red" }} />
                       </IconButton>
                     </Button>
@@ -160,13 +144,11 @@ const MessageComponent = ({ message, user }) => {
               </Box>
             );
           })}
-
-        {/* Time and DoneAll Icon */}
-        <Box display="flex" alignItems="center" marginTop="0.1rem">
+        <Box display="flex" justifyContent="space-between" alignItems="center" marginTop="0.1rem">
           <Typography variant="caption" color={"text.secondary"}>
             {timeAgo}
           </Typography>
-          <DoneAllTwoToneIcon fontSize="small" sx={{ color: "gray", marginLeft: "3.5rem" }} />
+          <DoneAllTwoToneIcon fontSize="small" sx={{ color: "gray" }} />
         </Box>
       </Box>
     </motion.div>
