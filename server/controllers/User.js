@@ -188,18 +188,22 @@ const acceptFriendRequest = TryCatch(async (req, res, next) => {
 });
 
 const getMyNotifications = TryCatch(async (req, res) => {
-    const requests = await Request.find({ receiver: req.user }).populate(
-        "sender",
-        "name avatar"
-    );
+    const requests = await Request.find({ receiver: req.user })
+        .populate('sender', 'name avatar')
+        .populate({
+            path: 'groupId',
+            select: 'name',
+        });
 
-    const allRequests = requests.map(({ _id, sender }) => ({
+    const allRequests = requests.map(({ _id, sender, receiver, groupId }) => ({
         _id,
         sender: {
             _id: sender._id,
             name: sender.name,
             avatar: sender.avatar.url,
+            receiver: receiver,
         },
+        groupName: groupId ? groupId.name : null,
     }));
 
     return res.status(200).json({
