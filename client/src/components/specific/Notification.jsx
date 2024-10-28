@@ -21,7 +21,7 @@ import {
   useUpdateReceiverDetailsMutation,
 } from "../../redux/api/Api.js";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
+// import CancelIcon from '@mui/icons-material/Cancel';
 import { setIsNotification } from "../../redux/reducers/misc";
 
 const Notifications = () => {
