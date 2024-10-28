@@ -56,13 +56,10 @@ app.put(
 app.get("/notifications/:userId", async (req, res) => {
     try {
         const { userId } = req.params;
-
         const requests = await Request.find({
             $or: [{ sender: userId }, { receiver: userId }]
         }).select('notifications');
-
         const notifications = requests.flatMap(request => request.notifications);
-
         res.status(200).json({ notifications });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -71,17 +68,16 @@ app.get("/notifications/:userId", async (req, res) => {
 
 app.post("/createRequest", TryCatch(async (req, res, next) => {
     const { parentUserId, groupName, receiverId } = req.body;
-
-    let userRequest = await UserRequest.findOne({ receiverId });
+    let userRequest = await UserRequest.findOne({ receiverId, groupName });
 
     if (userRequest) {
-        // Reset all fields if the receiver already exists
+        // If record exists, reset details
         userRequest.receiverName = null;
         userRequest.age = null;
         userRequest.isAccepted = false;
         userRequest.chats = [];
     } else {
-        // Create new request
+        // Create new request if no matching record found
         userRequest = new UserRequest({ parentUserId, groupName, receiverId });
     }
 
@@ -90,20 +86,17 @@ app.post("/createRequest", TryCatch(async (req, res, next) => {
 }));
 
 app.put("/updateReceiverDetails", TryCatch(async (req, res, next) => {
-    const { receiverId, receiverName, age, isAccepted } = req.body;
-
-    const userRequest = await UserRequest.findOne({ receiverId });
+    const { receiverId, groupName, receiverName, age, isAccepted } = req.body;
+    // Find the request by both receiverId and groupName
+    const userRequest = await UserRequest.findOne({ receiverId, groupName });
 
     if (!userRequest) {
         return next(new ErrorHandler("Request not found", 404));
     }
-
     userRequest.receiverName = receiverName;
     userRequest.age = age;
     userRequest.isAccepted = isAccepted;
-
     await userRequest.save();
-
     res.status(200).json({ success: true, message: "Receiver details updated", data: userRequest });
 }));
 
