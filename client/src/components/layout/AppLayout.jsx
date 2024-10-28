@@ -1,9 +1,8 @@
 import { Drawer, Grid, Skeleton } from "@mui/material";
-// eslint-disable-next-line no-unused-vars
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { useTheme } from "../../utils/ThemeProvider.jsx"; 
+import { useTheme } from "../../utils/ThemeProvider.jsx";
 import {
   NEW_MESSAGE_ALERT,
   NEW_REQUEST,
@@ -43,7 +42,7 @@ const AppLayout = (WrappedComponent) => {
     const { user } = useSelector((state) => state.auth);
     const { newMessagesAlert } = useSelector((state) => state.chat);
     const { isLoading, data, isError, error, refetch } = useMyChatsQuery("");
-
+    const handleMobileClose = () => dispatch(setIsMobile(false));
     useErrors([{ isError, error }]);
 
     useEffect(() => {
@@ -55,8 +54,6 @@ const AppLayout = (WrappedComponent) => {
       dispatch(setSelectedDeleteChat({ chatId, groupChat }));
       deleteMenuAnchor.current = e.currentTarget;
     };
-
-    const handleMobileClose = () => dispatch(setIsMobile(false));
 
     const newMessageAlertListener = useCallback(
       (data) => {
@@ -87,17 +84,15 @@ const AppLayout = (WrappedComponent) => {
     };
 
     useSocketEvents(socket, eventHandlers);
-    
+
     return (
       <>
         <Title />
         <Header />
-
         <DeleteChatMenu
           dispatch={dispatch}
           deleteMenuAnchor={deleteMenuAnchor}
         />
-
         {isLoading ? (
           <Skeleton />
         ) : (
@@ -112,9 +107,8 @@ const AppLayout = (WrappedComponent) => {
             />
           </Drawer>
         )}
-
         <Grid container height={"calc(100vh - 4rem)"}
-        sx={{ mt: '-65px' }}>
+          sx={{ mt: '-65px' }}>
           <Grid
             item
             sm={4}
@@ -141,7 +135,6 @@ const AppLayout = (WrappedComponent) => {
           <Grid item xs={12} sm={8} md={5} lg={6} height={"100%"}>
             <WrappedComponent {...props} chatId={chatId} user={user} />
           </Grid>
-
           <Grid
             item
             md={4}
