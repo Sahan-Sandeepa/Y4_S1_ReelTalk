@@ -13,6 +13,10 @@ import RenderAttachment from "./RenderAttachment";
 import { motion } from "framer-motion";
 
 const MessageComponent = ({ message, user, chatName }) => {
+  console.log(' -----------------------------------');
+  console.log('MessageComponent  message:', message);
+  console.log(' -----------------------------------');
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const paramValue = queryParams.get('param');
@@ -55,7 +59,7 @@ const MessageComponent = ({ message, user, chatName }) => {
       {!sameSender && (
         <Box display="flex" alignItems="center" marginBottom="0.5rem">
           <Avatar
-            src={avatarUrl}
+            // src={avatarUrl}
             alt={sender.name}
             sx={{
               bgcolor: avatarUrl ? 'transparent' : lightBlue,
