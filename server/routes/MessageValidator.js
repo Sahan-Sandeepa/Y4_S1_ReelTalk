@@ -31,7 +31,6 @@ const executePython = async (script, args) => {
     return JSON.parse(result);
 };
 
-//Route of the bad word detecting feature
 app.post('/predict', async (req, res) => {
     const { message } = req.body;
 
